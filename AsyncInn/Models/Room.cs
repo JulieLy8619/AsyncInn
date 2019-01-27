@@ -16,5 +16,9 @@ namespace AsyncInn.Models
         public int ID { get; set; }
         public string Name { get; set; }
         public LayoutEnum Layout { get; set; }
+
+        //navigation
+        public HotelRoom HotelRoom { get; set; }
+        public RoomAmenities RoomAmenities { get; set; }
     }
 }
