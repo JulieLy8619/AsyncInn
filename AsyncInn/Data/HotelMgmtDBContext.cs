@@ -44,7 +44,9 @@ namespace AsyncInn.Data
                 {
                     ID = 5,
                     Name = "High speed internet"
-                },
+                }
+                );
+            modelBuilder.Entity<Hotel>().HasData(
                 new Hotel
                 {
                     ID = 1,
@@ -79,7 +81,9 @@ namespace AsyncInn.Data
                     Name = "No Wheres Land Hotel",
                     Address = "456 Fake Place Seattle, WA 98133",
                     PhoneNumber = "206 998 7655"
-                },
+                }
+            );
+            modelBuilder.Entity<Room>().HasData(
                 new Room
                 {
                     ID = 1,
@@ -116,7 +120,7 @@ namespace AsyncInn.Data
                     Name = "Blue Solo Hen",
                     Layout = LayoutEnum.Studio
                 }
-                );
+            );
         }
 
         //sets up our tables
