@@ -1,23 +1,27 @@
-﻿<!DOCTYPE html>
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "_Layout";
+}
+@*<!DOCTYPE html>
 <html>
 <head>
     <title>Testing title</title>
     <link href="~/reset.css" rel="stylesheet" />
     <link href="~/StyleSheet.css" rel="stylesheet" />
-</head>
+</head>*@
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li>Home</li>
-                <li><a asp-controller="Hotel" asp-action="Hotel" href="~/Views/Hotel/Index.cshtml">Hotel Management</a></li>
-                <li>Room Management</li>
-                <li>Amenities Management</li>
-                <li>Room Amenities Management</li>
-                <li>Hotel Room Management</li>
-            </ul>
-        </nav>
-    </header>
+    @*<header>
+            <nav>
+                <ul>
+                    <li>Home</li>
+                    <li><a asp-controller="Hotel" asp-action="Index">Hotel Management</a></li>
+                    <li><a asp-controller="Room" asp-action="Index">Room Management</a></li>
+                    <li><a asp-controller="Amenities" asp-action="Index">Amenities Management</a></li>
+                    <li><a asp-controller="RoomAmenities" asp-action="Index">Room Amenities Management</a></li>
+                    <li><a asp-controller="HotelRoom" asp-action="Index">Hotel Room Management</a></li>
+                </ul>
+            </nav>
+        </header>*@
     <h1>Welcome to AsynInn Hotel Management System</h1>
 </body>
 </html>
