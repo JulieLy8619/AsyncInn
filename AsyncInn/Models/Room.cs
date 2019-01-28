@@ -17,9 +17,9 @@ namespace AsyncInn.Models
     public class Room
     {
         public int ID { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Please provide a name")]
         public string Name { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Please pick a layout")]
         public LayoutEnum Layout { get; set; }
 
         //navigation

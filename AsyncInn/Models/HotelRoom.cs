@@ -12,6 +12,7 @@ namespace AsyncInn.Models
         [Required]
         public int RoomNumber { get; set; }
         public int RoomID { get; set; }
+        [DataType(DataType.Currency)]
         public double Rate { get; set; }
         public bool PetFriendly { get; set; }
 
