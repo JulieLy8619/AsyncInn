@@ -18,7 +18,9 @@ namespace AsyncInn.Models
         public LayoutEnum Layout { get; set; }
 
         //navigation
-        public HotelRoom HotelRoom { get; set; }
-        public RoomAmenities RoomAmenities { get; set; }
+        //public HotelRoom HotelRoom { get; set; }
+        //public RoomAmenities RoomAmenities { get; set; }
+        ICollection<HotelRoom> HRooms { get; set; }
+        ICollection<RoomAmenities> Amenitites { get; set; }
     }
 }
