@@ -2,8 +2,31 @@
 
 @{
     ViewData["Title"] = "Edit";
-    Layout = "_Layout";
+    //Layout = "_Layout";
 }
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/reset.css" rel="stylesheet" />
+    <link href="~/StyleSheet.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                <li><a asp-controller="Hotel" asp-action="Index">Hotel Management</a></li>
+                <li><a asp-controller="Room" asp-action="Index">Room Management</a></li>
+                <li><a asp-controller="Amenities" asp-action="Index">Amenities Management</a></li>
+                <li><a asp-controller="RoomAmenities" asp-action="Index">Room Amenities Management</a></li>
+                <li><a asp-controller="HotelRoom" asp-action="Index">Hotel Room Management</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div>
 
 <h1>Edit</h1>
 
@@ -33,3 +56,6 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+    </div>
+</body>
+</html>
