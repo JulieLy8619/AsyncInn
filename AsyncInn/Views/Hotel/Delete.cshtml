@@ -1,7 +1,8 @@
 ﻿@model AsyncInn.Models.Hotel
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Index";
+    Layout = "_Layout";
 }
 
 <h1>Delete - Hotel Managemant</h1>
@@ -30,7 +31,7 @@
             @Html.DisplayFor(model => model.PhoneNumber)
         </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="ID" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |

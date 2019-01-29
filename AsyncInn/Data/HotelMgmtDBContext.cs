@@ -19,6 +19,7 @@ namespace AsyncInn.Data
             //adds our composit keys
             modelBuilder.Entity<RoomAmenities>().HasKey(ra => new { ra.AmenitiesID, ra.RoomID });
             modelBuilder.Entity<HotelRoom>().HasKey(hr => new { hr.HotelID, hr.RoomNumber });
+
             modelBuilder.Entity<Amenities>().HasData(
                 new Amenities
                 {
