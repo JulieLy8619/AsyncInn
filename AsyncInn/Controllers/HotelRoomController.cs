@@ -68,7 +68,8 @@ namespace AsyncInn.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["HotelID"] = new SelectList(_context.HotelTable, "ID", "Name", hotelRoom.HotelID);
-            ViewData["RoomNumber"] = new SelectList(_context.RoomTable, "RoomNumber", "RoomNumber", hotelRoom.RoomID);
+            ViewData["RoomNumber"] = new SelectList(_context.RoomTable, "RoomNumber", "RoomNumber", hotelRoom.RoomNumber);
+            ViewData["RoomID"] = new SelectList(_context.RoomTable, "ID", "RoomID", hotelRoom.RoomID);
             return View(hotelRoom);
         }
 

@@ -5,22 +5,22 @@
     Layout = "_Layout";
 }
 
-<h1>Details</h1>
+<h1>Details - Room Amenities</h1>
 
 <div>
     <h4>RoomAmenities</h4>
     <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
+    <dl>
+        <dt>
             @Html.DisplayNameFor(model => model.Amenities)
         </dt>
-        <dd class="col-sm-10">
+        <dd>
             @Html.DisplayFor(model => model.Amenities.ID)
         </dd>
-        <dt class="col-sm-2">
+        <dt>
             @Html.DisplayNameFor(model => model.Room)
         </dt>
-        <dd class="col-sm-10">
+        <dd>
             @Html.DisplayFor(model => model.Room.ID)
         </dd>
     </dl>

@@ -12,9 +12,11 @@ namespace AsyncInn.Models
         public int HotelID { get; set; }
         [Required]
         public int RoomNumber { get; set; }
+        [Display(Name = "Room Name")]
         public int RoomID { get; set; }
         [DataType(DataType.Currency)]
         public double Rate { get; set; }
+        [Display(Name = "Pet Friendly")]
         public bool PetFriendly { get; set; }
 
         //navigation
