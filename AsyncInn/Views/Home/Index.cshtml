@@ -2,26 +2,17 @@
     ViewData["Title"] = "Index";
     Layout = "_Layout";
 }
-@*<!DOCTYPE html>
 <html>
-<head>
-    <title>Testing title</title>
-    <link href="~/reset.css" rel="stylesheet" />
-    <link href="~/StyleSheet.css" rel="stylesheet" />
-</head>*@
 <body>
-    @*<header>
-            <nav>
-                <ul>
-                    <li>Home</li>
-                    <li><a asp-controller="Hotel" asp-action="Index">Hotel Management</a></li>
-                    <li><a asp-controller="Room" asp-action="Index">Room Management</a></li>
-                    <li><a asp-controller="Amenities" asp-action="Index">Amenities Management</a></li>
-                    <li><a asp-controller="RoomAmenities" asp-action="Index">Room Amenities Management</a></li>
-                    <li><a asp-controller="HotelRoom" asp-action="Index">Hotel Room Management</a></li>
-                </ul>
-            </nav>
-        </header>*@
     <h1>Welcome to AsynInn Hotel Management System</h1>
+    <nav>
+        <ul>
+            <li><a asp-controller="Hotel" asp-action="Create">Create Hotel</a></li>
+            <li><a asp-controller="Room" asp-action="Create">Create Room</a></li>
+            <li><a asp-controller="Amenities" asp-action="Create">Create Amenities</a></li>
+            <li><a asp-controller="RoomAmenities" asp-action="Create">Create Room Amenities</a></li>
+            <li><a asp-controller="HotelRoom" asp-action="Create">Create Hotel Room</a></li>
+        </ul>
+    </nav>
 </body>
 </html>
