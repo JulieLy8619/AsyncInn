@@ -2,25 +2,50 @@
 
 @{
     ViewData["Title"] = "Create";
+    //Layout = "_Layout";
 }
+<!DOCTYPE html>
 
-<h1>Create</h1>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/reset.css" rel="stylesheet" />
+    <link href="~/StyleSheet.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                <li><a asp-controller="Hotel" asp-action="Index">Hotel Management</a></li>
+                <li><a asp-controller="Room" asp-action="Index">Room Management</a></li>
+                <li><a asp-controller="Amenities" asp-action="Index">Amenities Management</a></li>
+                <li><a asp-controller="RoomAmenities" asp-action="Index">Room Amenities Management</a></li>
+                <li><a asp-controller="HotelRoom" asp-action="Index">Hotel Room Management</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div>
+
+
+<h1>Create - Room Amenities</h1>
 
 <h4>RoomAmenities</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div>
+    <div>
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div>
                 <label asp-for="AmenitiesID" class="control-label"></label>
-                <select asp-for="AmenitiesID" class ="form-control" asp-items="ViewBag.AmenitiesID"></select>
+                <select asp-for="AmenitiesID" class="form-control" asp-items="ViewBag.AmenitiesID"></select>
             </div>
-            <div class="form-group">
+            <div>
                 <label asp-for="RoomID" class="control-label"></label>
-                <select asp-for="RoomID" class ="form-control" asp-items="ViewBag.RoomID"></select>
+                <select asp-for="RoomID" class="form-control" asp-items="ViewBag.RoomID"></select>
             </div>
-            <div class="form-group">
+            <div>
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
@@ -34,3 +59,6 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+    </div>
+</body>
+</html>

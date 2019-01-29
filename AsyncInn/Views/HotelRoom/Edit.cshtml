@@ -2,34 +2,59 @@
 
 @{
     ViewData["Title"] = "Edit";
+    //Layout = "_Layout";
 }
+<!DOCTYPE html>
 
-<h1>Edit</h1>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/reset.css" rel="stylesheet" />
+    <link href="~/StyleSheet.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                <li><a asp-controller="Hotel" asp-action="Index">Hotel Management</a></li>
+                <li><a asp-controller="Room" asp-action="Index">Room Management</a></li>
+                <li><a asp-controller="Amenities" asp-action="Index">Amenities Management</a></li>
+                <li><a asp-controller="RoomAmenities" asp-action="Index">Room Amenities Management</a></li>
+                <li><a asp-controller="HotelRoom" asp-action="Index">Hotel Room Management</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div>
+
+
+<h1>Edit - Hotel Room</h1>
 
 <h4>HotelRoom</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
+<div>
+    <div>
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="HotelID" />
             <input type="hidden" asp-for="RoomNumber" />
-            <div class="form-group">
+            <div>
                 <label asp-for="RoomID" class="control-label"></label>
                 <select asp-for="RoomID" class="form-control" asp-items="ViewBag.RoomID"></select>
                 <span asp-validation-for="RoomID" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div>
                 <label asp-for="Rate" class="control-label"></label>
                 <input asp-for="Rate" class="form-control" />
                 <span asp-validation-for="Rate" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
+            <div>
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="PetFriendly" /> @Html.DisplayNameFor(model => model.PetFriendly)
                 </label>
             </div>
-            <div class="form-group">
+            <div>
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
@@ -43,3 +68,6 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+    </div>
+</body>
+</html>

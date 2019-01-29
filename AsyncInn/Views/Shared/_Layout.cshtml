@@ -1,10 +1,4 @@
-﻿@model AsyncInn.Models.RoomAmenities
-
-@{
-    ViewData["Title"] = "Edit";
-    //Layout = "_Layout";
-}
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html>
 <head>
@@ -27,32 +21,8 @@
         </nav>
     </header>
     <div>
-
-
-<h1>Edit - Room Amenities</h1>
-
-<h4>RoomAmenities</h4>
-<hr />
-<div>
-    <div>
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="AmenitiesID" />
-            <input type="hidden" asp-for="RoomID" />
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+        @RenderBody()
     </div>
 </body>
 </html>
+

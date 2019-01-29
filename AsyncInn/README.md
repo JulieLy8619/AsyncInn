@@ -22,8 +22,11 @@ As a user you will not need to install anything to use it.
 However as a developer, you will need Visual Studio with ASP.net Core 2.2 capabilities
 The design is still in construction, but for now the home page looks like this:
 ![home](./images/endof13view.JPG)
-and all the other pages have not been CSS'd yet
-![exampleOfOtherPages](./images/endof13viewHotelMgmt.JPG)
+The other pages look similar to the home page.
+Seeded Data:
+![HotelsSeeded](./imges/seeded1.JPG)
+![RoomsSeeded](./imges/seeded2.JPG)
+![AmenitiesSeeded](./imges/seeded3.JPG)
 
 ## Contributors
 
