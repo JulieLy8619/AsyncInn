@@ -44,6 +44,7 @@ namespace AsyncInn.Controllers
         }
 
         // GET: Amenities/Create
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
