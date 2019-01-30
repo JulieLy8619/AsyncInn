@@ -1,5 +1,6 @@
 ﻿using AsyncInn.Data;
 using AsyncInn.Models.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,22 +24,24 @@ namespace AsyncInn.Models.Services
 
         public async Task<Amenities> GetAmenities(int id)
         {
-            return await _context.AmenitiesTable.FirstOrDefault(amen => amen.ID == id);
+            return await _context.AmenitiesTable.FirstOrDefaultAsync(amen => amen.ID == id);
         }
 
         public async Task<IEnumerable<Amenities>> GetAmenities()
         {
-            return await _context.AmenitiesTable.
+            return await _context.AmenitiesTable.ToListAsync();
         }
 
         public void UpdateAmenity(Amenities amenity)
         {
-
+            _context.AmenitiesTable.Update(amenity);
         }
 
         public void DeleteAmenity(int id)
         {
             Amenities amenity = _context.AmenitiesTable.FirstOrDefault(amen => amen.ID == id);
+            _context.AmenitiesTable.Remove(amenity);
+            _context.SaveChanges();
         }
     }
 }
