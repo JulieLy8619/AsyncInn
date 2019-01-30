@@ -39,7 +39,7 @@ namespace AsyncInn.Models.Services
             return await _context.RoomTable.ToListAsync();
         }
 
-        public async void UpdateRoom(Room room)
+        public async Task UpdateRoom(Room room)
         {
             _context.RoomTable.Update(room);
             await _context.SaveChangesAsync();

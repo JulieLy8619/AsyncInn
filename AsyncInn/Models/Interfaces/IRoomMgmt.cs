@@ -10,7 +10,7 @@ namespace AsyncInn.Models.Interfaces
         Task CreateRoom(Room room);
         Task<Room> GetRoom(int id);
         Task<IEnumerable<Room>> GetRoom();
-        void UpdateRoom(Room room);
+        Task UpdateRoom(Room room);
         Task<Room> DeleteRoom(int id);
     }
 }

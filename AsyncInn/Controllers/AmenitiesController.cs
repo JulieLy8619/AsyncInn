@@ -75,33 +75,9 @@ namespace AsyncInn.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Name")] Amenities amenities)
         {
-            //if (id != amenities.ID)
-            //{
-            //    return NotFound();
-            //}
-
-            //if (ModelState.IsValid)
-            //{
-                //try
-                //{
-                    await _context.UpdateAmenity(amenities);
-                //}
-                //catch (DbUpdateConcurrencyException)
-                //{
-                //    if (!AmenitiesExists(amenities.ID))
-                //    {
-                //        return NotFound();
-                //    }
-                //    else
-                //    {
-                //        throw;
-                //    }
-                //}
-                return RedirectToAction(nameof(Index));
-            //}
-            //return View(amenities);
+            await _context.UpdateAmenity(amenities);
+            return RedirectToAction(nameof(Index));
         }
-        //}
 
         // GET: Amenities/Delete/5
         public async Task<IActionResult> Delete(int id)

@@ -70,37 +70,13 @@ namespace AsyncInn.Controllers
         //// POST: Hotel/Edit/5
         //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Address,PhoneNumber")] Hotel hotel)
-        //{
-        //    if (id != hotel.ID)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    if (ModelState.IsValid)
-        //    {
-        //        try
-        //        {
-        //            _context.Update(hotel);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!HotelExists(hotel.ID))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(hotel);
-        //}
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Address,PhoneNumber")] Hotel hotel)
+        {
+            await _context.UpdateHotel(hotel);
+            return RedirectToAction(nameof(Index));
+        }
 
         // GET: Hotel/Delete/5
         public async Task<IActionResult> Delete(int id)
@@ -118,9 +94,18 @@ namespace AsyncInn.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //private bool HotelExists(int id)
-        //{
-        //    return _context.HotelTable.Any(e => e.ID == id);
-        //}
+        private bool HotelExists(int id)
+        {
+            var returnedHotelId = _context.GetHotel(id);
+            if (returnedHotelId.Id == id)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
     }
 }
