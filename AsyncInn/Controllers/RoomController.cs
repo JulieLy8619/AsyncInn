@@ -7,14 +7,15 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AsyncInn.Data;
 using AsyncInn.Models;
+using AsyncInn.Models.Interfaces;
 
 namespace AsyncInn.Controllers
 {
     public class RoomController : Controller
     {
-        private readonly HotelMgmtDBContext _context;
+        private readonly IRoomMgmt _context;
 
-        public RoomController(HotelMgmtDBContext context)
+        public RoomController(IRoomMgmt context)
         {
             _context = context;
         }
@@ -22,25 +23,15 @@ namespace AsyncInn.Controllers
         // GET: Room
         public async Task<IActionResult> Index()
         {
-            return View(await _context.RoomTable.ToListAsync());
+            return View(await _context.GetRoom());
         }
 
         // GET: Room/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            var roomsD = await _context.GetRoom(id);
 
-            var room = await _context.RoomTable
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (room == null)
-            {
-                return NotFound();
-            }
-
-            return View(room);
+            return View(roomsD);
         }
 
         // GET: Room/Create
@@ -56,82 +47,66 @@ namespace AsyncInn.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,Name,Layout")] Room room)
         {
+            Room newRm = room;
             if (ModelState.IsValid)
             {
-                _context.Add(room);
-                await _context.SaveChangesAsync();
+                await _context.CreateRoom(newRm);
                 return RedirectToAction(nameof(Index));
             }
             return View(room);
         }
 
         // GET: Room/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
+            var rm = await _context.GetRoom(id);
+            if (rm == null)
             {
                 return NotFound();
             }
-
-            var room = await _context.RoomTable.FindAsync(id);
-            if (room == null)
-            {
-                return NotFound();
-            }
-            return View(room);
+            return View(rm);
         }
 
-        // POST: Room/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Layout")] Room room)
-        {
-            if (id != room.ID)
-            {
-                return NotFound();
-            }
+        //// POST: Room/Edit/5
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Layout")] Room room)
+        //{
+        //    if (id != room.ID)
+        //    {
+        //        return NotFound();
+        //    }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(room);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!RoomExists(room.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(room);
-        }
+        //    if (ModelState.IsValid)
+        //    {
+        //        try
+        //        {
+        //            _context.Update(room);
+        //            await _context.SaveChangesAsync();
+        //        }
+        //        catch (DbUpdateConcurrencyException)
+        //        {
+        //            if (!RoomExists(room.ID))
+        //            {
+        //                return NotFound();
+        //            }
+        //            else
+        //            {
+        //                throw;
+        //            }
+        //        }
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View(room);
+        //}
 
         // GET: Room/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var room = await _context.RoomTable
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (room == null)
-            {
-                return NotFound();
-            }
-
-            return View(room);
+            var delRoom = await _context.GetRoom(id);
+            return View(delRoom);
         }
 
         // POST: Room/Delete/5
@@ -139,15 +114,13 @@ namespace AsyncInn.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var room = await _context.RoomTable.FindAsync(id);
-            _context.RoomTable.Remove(room);
-            await _context.SaveChangesAsync();
+            var rm = await _context.DeleteRoom(id);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool RoomExists(int id)
-        {
-            return _context.RoomTable.Any(e => e.ID == id);
-        }
+        //private bool RoomExists(int id)
+        //{
+        //    return _context.RoomTable.Any(e => e.ID == id);
+        //}
     }
 }
