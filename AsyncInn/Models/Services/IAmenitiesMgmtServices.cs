@@ -37,11 +37,20 @@ namespace AsyncInn.Models.Services
             _context.AmenitiesTable.Update(amenity);
         }
 
-        public void DeleteAmenity(int id)
+        public async Task<Amenities> DeleteAmenity(int id)
         {
             Amenities amenity = _context.AmenitiesTable.FirstOrDefault(amen => amen.ID == id);
             _context.AmenitiesTable.Remove(amenity);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
+            return amenity;
         }
+        //public bool ExistAmenity(int id)
+        //{
+        //    var findAmend = await _context.AmenitiesTable.FindAsync(id);
+        //    _context.AmenitiesTable.Remove(findAmend);
+        //    await _context.SaveChangesAsync();
+            
+        //    return _context.AmenitiesTable.Any(e => e.ID == id);
+        //}
     }
 }
