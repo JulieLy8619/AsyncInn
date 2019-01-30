@@ -71,27 +71,40 @@ namespace AsyncInn.Controllers
         //// POST: Amenities/Edit/5
         //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public Task<IActionResult> Edit(int id, [Bind("ID,Name")] Amenities amenities)
-        //{
-        //var tempAmenities = await _context.UpdateAmenity(amenities);
-        //return View(amenities);
-        //    if (id != amenities.ID)
-        //    {
-        //        return NotFound();
-        //    }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name")] Amenities amenities)
+        {
+            //if (id != amenities.ID)
+            //{
+            //    return NotFound();
+            //}
 
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.UpdateAmenity(amenities);
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(amenities);
-    //}
+            //if (ModelState.IsValid)
+            //{
+                //try
+                //{
+                    await _context.UpdateAmenity(amenities);
+                //}
+                //catch (DbUpdateConcurrencyException)
+                //{
+                //    if (!AmenitiesExists(amenities.ID))
+                //    {
+                //        return NotFound();
+                //    }
+                //    else
+                //    {
+                //        throw;
+                //    }
+                //}
+                return RedirectToAction(nameof(Index));
+            //}
+            //return View(amenities);
+        }
+        //}
 
-    // GET: Amenities/Delete/5
-    public async Task<IActionResult> Delete(int id)
+        // GET: Amenities/Delete/5
+        public async Task<IActionResult> Delete(int id)
         {
             var delAmenity = await _context.GetAmenities(id);
             return View(delAmenity);
@@ -107,10 +120,18 @@ namespace AsyncInn.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        //private bool AmenitiesExists(int id)
-        //{
-        //    return _context.ExistAmenity(id);
+        private bool AmenitiesExists(int id)
+        {
+            var returnedAmenityId = _context.GetAmenities(id);
+            if (returnedAmenityId.Id == id)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
 
-        //}
+        }
     }
 }
