@@ -7,14 +7,15 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AsyncInn.Data;
 using AsyncInn.Models;
+using AsyncInn.Models.Interfaces;
 
 namespace AsyncInn.Controllers
 {
     public class AmenitiesController : Controller
     {
-        private readonly HotelMgmtDBContext _context;
+        private readonly IAmenitiesMgmt _context;
 
-        public AmenitiesController(HotelMgmtDBContext context)
+        public AmenitiesController(IAmenitiesMgmt context)
         {
             _context = context;
         }
@@ -22,28 +23,19 @@ namespace AsyncInn.Controllers
         // GET: Amenities
         public async Task<IActionResult> Index()
         {
-            return View(await _context.AmenitiesTable.ToListAsync());
+            return View(await _context.GetAmenities());
         }
 
         // GET: Amenities/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var amenities = await _context.AmenitiesTable
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (amenities == null)
-            {
-                return NotFound();
-            }
+            var amenities = await _context.GetAmenities(id);
 
             return View(amenities);
         }
 
         // GET: Amenities/Create
+        [HttpGet]
         public IActionResult Create()
         {
             return View();
@@ -56,24 +48,19 @@ namespace AsyncInn.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,Name")] Amenities amenities)
         {
+            Amenities newAmend = amenities;
             if (ModelState.IsValid)
             {
-                _context.Add(amenities);
-                await _context.SaveChangesAsync();
+                await _context.CreateAmenity(newAmend);
                 return RedirectToAction(nameof(Index));
             }
             return View(amenities);
         }
 
         // GET: Amenities/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var amenities = await _context.AmenitiesTable.FindAsync(id);
+            var amenities = await _context.GetAmenities(id);
             if (amenities == null)
             {
                 return NotFound();
@@ -81,57 +68,34 @@ namespace AsyncInn.Controllers
             return View(amenities);
         }
 
-        // POST: Amenities/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name")] Amenities amenities)
+        //// POST: Amenities/Edit/5
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public Task<IActionResult> Edit(int id, [Bind("ID,Name")] Amenities amenities)
+        //{
+        //var tempAmenities = await _context.UpdateAmenity(amenities);
+        //return View(amenities);
+        //    if (id != amenities.ID)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        _context.UpdateAmenity(amenities);
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    return View(amenities);
+    //}
+
+    // GET: Amenities/Delete/5
+    public async Task<IActionResult> Delete(int id)
         {
-            if (id != amenities.ID)
-            {
-                return NotFound();
-            }
+            var delAmenity = await _context.GetAmenities(id);
+            return View(delAmenity);
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(amenities);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AmenitiesExists(amenities.ID))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(amenities);
-        }
-
-        // GET: Amenities/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var amenities = await _context.AmenitiesTable
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (amenities == null)
-            {
-                return NotFound();
-            }
-
-            return View(amenities);
         }
 
         // POST: Amenities/Delete/5
@@ -139,15 +103,14 @@ namespace AsyncInn.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var amenities = await _context.AmenitiesTable.FindAsync(id);
-            _context.AmenitiesTable.Remove(amenities);
-            await _context.SaveChangesAsync();
+            var amenities = await _context.DeleteAmenity(id);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool AmenitiesExists(int id)
-        {
-            return _context.AmenitiesTable.Any(e => e.ID == id);
-        }
+        //private bool AmenitiesExists(int id)
+        //{
+        //    return _context.ExistAmenity(id);
+
+        //}
     }
 }
