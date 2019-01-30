@@ -27,22 +27,12 @@ namespace AsyncInn.Controllers
         }
 
         // GET: Amenities/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
+        public async Task<IActionResult> Details(int id)
+        {
+            var amenities = await _context.GetAmenities(id);
 
-        //    var amenities = await _context.AmenitiesTable
-        //        .FirstOrDefaultAsync(m => m.ID == id);
-        //    if (amenities == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(amenities);
-        //}
+            return View(amenities);
+        }
 
         // GET: Amenities/Create
         [HttpGet]
@@ -78,13 +68,15 @@ namespace AsyncInn.Controllers
             return View(amenities);
         }
 
-        // POST: Amenities/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //// POST: Amenities/Edit/5
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         //[HttpPost]
         //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("ID,Name")] Amenities amenities)
+        //public Task<IActionResult> Edit(int id, [Bind("ID,Name")] Amenities amenities)
         //{
+        //var tempAmenities = await _context.UpdateAmenity(amenities);
+        //return View(amenities);
         //    if (id != amenities.ID)
         //    {
         //        return NotFound();
@@ -92,29 +84,14 @@ namespace AsyncInn.Controllers
 
         //    if (ModelState.IsValid)
         //    {
-        //        try
-        //        {
-        //            _context.Update(amenities);
-        //            await _context.SaveChangesAsync();
-        //        }
-        //        catch (DbUpdateConcurrencyException)
-        //        {
-        //            if (!AmenitiesExists(amenities.ID))
-        //            {
-        //                return NotFound();
-        //            }
-        //            else
-        //            {
-        //                throw;
-        //            }
-        //        }
+        //        _context.UpdateAmenity(amenities);
         //        return RedirectToAction(nameof(Index));
         //    }
         //    return View(amenities);
-        //}
+    //}
 
-        // GET: Amenities/Delete/5
-        public async Task<IActionResult> Delete(int id)
+    // GET: Amenities/Delete/5
+    public async Task<IActionResult> Delete(int id)
         {
             var delAmenity = await _context.GetAmenities(id);
             return View(delAmenity);

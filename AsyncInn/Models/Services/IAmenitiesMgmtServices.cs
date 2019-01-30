@@ -32,6 +32,11 @@ namespace AsyncInn.Models.Services
             return await _context.AmenitiesTable.ToListAsync();
         }
 
+        //public async Task UpdateAmenity(Amenities amenity)
+        //{
+        //    _context.AmenitiesTable.Update(amenity);
+        //    await _context.SaveChangesAsync();
+        //}
         public void UpdateAmenity(Amenities amenity)
         {
             _context.AmenitiesTable.Update(amenity);
