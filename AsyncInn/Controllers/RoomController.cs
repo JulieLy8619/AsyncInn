@@ -21,9 +21,9 @@ namespace AsyncInn.Controllers
         }
 
         // GET: Room
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.GetRoom());
+            return View(await _context.SearchRoom(searchString));
         }
 
         // GET: Room/Details/5

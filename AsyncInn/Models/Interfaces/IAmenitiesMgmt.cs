@@ -10,6 +10,7 @@ namespace AsyncInn.Models.Interfaces
         Task CreateAmenity(Amenities amenity);
         Task<Amenities> GetAmenities(int id);
         Task<IEnumerable<Amenities>> GetAmenities();
+        Task<IEnumerable<Amenities>> SearchAmenity(string id);
         Task UpdateAmenity(Amenities amenity);
         Task<Amenities> DeleteAmenity(int id);
     }

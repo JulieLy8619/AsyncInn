@@ -10,6 +10,16 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<p>
+    Number of Amenities: @Model.Count()
+</p>
+<form asp-controller="Amenities" asp-action="Index">
+    <p>
+        Pick a Filter 
+        <input type="text" name="searchString">
+        <input type="submit" value="Filter" />
+    </p>
+</form>
 <table>
     <thead>
         <tr>

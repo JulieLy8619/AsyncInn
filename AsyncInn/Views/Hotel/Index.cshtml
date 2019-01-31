@@ -10,6 +10,16 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<p>
+    Number of Hotels: @Model.Count()
+</p>
+<form asp-controller="Hotel" asp-action="Index">
+    <p>
+        Pick a Filter
+        <input type="text" name="searchString">
+        <input type="submit" value="Filter" />
+    </p>
+</form>
 <table>
     <thead>
         <tr>
@@ -21,6 +31,9 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+            <th>
+                Number of Rooms
             </th>
             <th></th>
         </tr>
@@ -36,6 +49,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.count)*@
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |

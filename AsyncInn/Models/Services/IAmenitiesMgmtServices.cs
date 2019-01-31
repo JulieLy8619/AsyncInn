@@ -31,6 +31,17 @@ namespace AsyncInn.Models.Services
         {
             return await _context.AmenitiesTable.ToListAsync();
         }
+        public async Task<IEnumerable<Amenities>> SearchAmenity(string id)
+        {
+            var amens = from a in _context.AmenitiesTable
+                        select a;
+
+            if (!String.IsNullOrEmpty(id))
+            {
+                amens = amens.Where(n => n.Name.Contains(id));
+            }
+            return await amens.ToListAsync();
+        }
 
         public async Task UpdateAmenity(Amenities amenity)
         {

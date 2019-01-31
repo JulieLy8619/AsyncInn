@@ -39,6 +39,18 @@ namespace AsyncInn.Models.Services
             return await _context.RoomTable.ToListAsync();
         }
 
+        public async Task<IEnumerable<Room>> SearchRoom(string id)
+        {
+            var roos = from a in _context.RoomTable
+                       select a;
+
+            if (!String.IsNullOrEmpty(id))
+            {
+                roos = roos.Where(n => n.Name.Contains(id));
+            }
+            return await roos.ToListAsync();
+        }
+
         public async Task UpdateRoom(Room room)
         {
             _context.RoomTable.Update(room);
