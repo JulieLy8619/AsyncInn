@@ -41,8 +41,14 @@ namespace AsyncInn.Models.Services
 
         public async Task<IEnumerable<Hotel>> SearchHotel(string id)
         {
-            var hots = from a in _context.HotelTable
-                        select a;
+            //var hots = (from h in _context.HotelTable
+            //           var count = (
+            //            from ro in _context.HotelRoomTable
+            //            where h.ID == ro.HotelID
+            //            select ro).Count()
+            //            select new {h.ID, h.Name, Count = count }).ToListAsync;
+            var hots = from h in _context.HotelTable
+                       select h;
 
             if (!String.IsNullOrEmpty(id))
             {
