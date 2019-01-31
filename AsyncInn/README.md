@@ -27,7 +27,7 @@ Seeded Data:
 ![HotelsSeeded](./imges/seeded1.JPG)
 ![RoomsSeeded](./imges/seeded2.JPG)
 ![AmenitiesSeeded](./imges/seeded3.JPG)
-Not much has changed in terms of looks, but we have now added Dependency Injection. There is functionality to Create, Delete, and look at the details. (edit is still under construction)
+Not much has changed in terms of looks, but we have now added Dependency Injection. There is functionality to Create, Delete, look at, and edit the details.
 
 ## Contributors
 
