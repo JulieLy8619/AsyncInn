@@ -21,9 +21,9 @@ namespace AsyncInn.Controllers
         }
 
         // GET: Amenities
-        public async Task<IActionResult> Index(string id)
+        public async Task<IActionResult> Index(string searchString)
         {
-            return View(await _context.SearchAmenity(id));
+            return View(await _context.SearchAmenity(searchString));
         }
 
         // GET: Amenities/Details/5

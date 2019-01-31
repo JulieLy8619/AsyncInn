@@ -10,9 +10,9 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<form method="post">
+<form asp-controller="Amenities" asp-action="Index">
     <p>
-        Pick a Filter <input type="text" name="SearchString">
+        Pick a Filter <input type="text" name="searchString">
         <input type="submit" value="Filter" />
     </p>
     @*<select>
