@@ -39,6 +39,18 @@ namespace AsyncInn.Models.Services
             return await _context.HotelTable.ToListAsync();
         }
 
+        public async Task<IEnumerable<Hotel>> SearchHotel(string id)
+        {
+            var hots = from a in _context.HotelTable
+                        select a;
+
+            if (!String.IsNullOrEmpty(id))
+            {
+                hots = hots.Where(n => n.Name.Contains(id));
+            }
+            return await hots.ToListAsync();
+        }
+
         public async Task UpdateHotel(Hotel hotel)
         {
             _context.HotelTable.Update(hotel);

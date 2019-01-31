@@ -12,16 +12,10 @@
 </p>
 <form asp-controller="Amenities" asp-action="Index">
     <p>
-        Pick a Filter <input type="text" name="searchString">
+        Pick a Filter 
+        <input type="text" name="searchString">
         <input type="submit" value="Filter" />
     </p>
-    @*<select>
-        @foreach (var item in Model)
-        {
-            <option value="@item.Name">@item.Name</option>
-        }
-    </select>*@
-    @*<button type="submit"> Submit </button>*@
 </form>
 <table>
     <thead>
