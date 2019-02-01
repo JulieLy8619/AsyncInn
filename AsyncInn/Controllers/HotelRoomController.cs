@@ -27,9 +27,9 @@ namespace AsyncInn.Controllers
         }
 
         // GET: HotelRoom/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int? HotelID, int? RoomNumber)
         {
-            if (id == null)
+            if (HotelID == null)
             {
                 return NotFound();
             }
@@ -37,7 +37,7 @@ namespace AsyncInn.Controllers
             var hotelRoom = await _context.HotelRoomTable
                 .Include(h => h.Hotel)
                 .Include(h => h.Room)
-                .FirstOrDefaultAsync(m => m.HotelID == id);
+                .FirstOrDefaultAsync(m => m.HotelID == HotelID);
             if (hotelRoom == null)
             {
                 return NotFound();

@@ -132,9 +132,9 @@ namespace AsyncInn_unittesting
 
 
         //model hotelroom======================
-        //get/set hotelID?
-        //get/set roomid?
-        //get/set roomnumber?
+        //get/set hotelID
+        //get/set roomid
+        //get/set roomnumber
         //get rate
         [Fact]
         public void TesGetRate()
@@ -176,8 +176,8 @@ namespace AsyncInn_unittesting
 
 
         //model room amenities===============
-        //get/set amenitiesid?
-        //get/set roomid?
+        //get/set amenitiesid
+        //get/set roomid
         //create
         //read details
         //edit
