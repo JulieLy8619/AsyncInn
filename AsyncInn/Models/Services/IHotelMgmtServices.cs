@@ -71,6 +71,14 @@ namespace AsyncInn.Models.Services
             //we know this works for returning all 
             var hots = from h in _context.HotelTable
                        select h;
+            //jimmy hint: i will need to loop through the different hotels and linq their rooms
+            foreach (Hotel hot in hots)
+            {
+                var hRms = from hr in _context.HotelRoomTable
+                           where hr.HotelID == hot.ID
+                           select hr;
+                hot.HRoom = await hRms.ToListAsync();
+            }
 
             if (!String.IsNullOrEmpty(id))
             {
