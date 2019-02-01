@@ -41,12 +41,34 @@ namespace AsyncInn.Models.Services
 
         public async Task<IEnumerable<Hotel>> SearchHotel(string id)
         {
-            //var hots = (from h in _context.HotelTable
-            //           var count = (
-            //            from ro in _context.HotelRoomTable
-            //            where h.ID == ro.HotelID
-            //            select ro).Count()
-            //            select new {h.ID, h.Name, Count = count }).ToListAsync;
+            //var hots = from h in _context.HotelTable
+            //           select new HotelRoom
+            //           {
+            //               var count = 
+            //                (from ro in _context.HotelRoomTable
+            //                where h.ID == ro.HotelID
+            //                select ro)
+            //                .Count()
+            //            },
+            //            select new { h.ID, h.Name, Count = count }).ToListAsync;
+
+            //var hots = from h in _context.HotelTable
+            //           group h by h.ID into hr
+            //           select new
+            //           {
+            //               ID = hr.Key,
+            //               Name = hr.
+            //               count = _context.HotelRoomTable.Count()
+            //           };
+
+            //var hots = from h in _context.HotelTable
+            //        select new HotelRoom
+            //        {
+            //            Count = h.ID.Count
+            //        };
+
+
+            //we know this works for returning all 
             var hots = from h in _context.HotelTable
                        select h;
 
