@@ -64,9 +64,19 @@ namespace AsyncInn.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(hotelRoom);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //or should I try a linq and then if it is found in the table then return a notfound()
+                try
+                {
+                    _context.Add(hotelRoom);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception)
+                {
+                    //this does not work
+                    /*Console.WriteLine("That room number was already used or you are out of range");*/
+                    return NotFound();
+                }
             }
             ViewData["HotelID"] = new SelectList(_context.HotelTable, "ID", "Name", hotelRoom.HotelID);
             ViewData["RoomNumber"] = new SelectList(_context.RoomTable, "RoomNumber", "RoomNumber", hotelRoom.RoomNumber);
