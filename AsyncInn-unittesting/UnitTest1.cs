@@ -68,7 +68,22 @@ namespace AsyncInn_unittesting
             Assert.Equal("new addy 987", testHot4.Address);
         }
         //get phone number
+        [Fact]
+        public void TestGetPhone()
+        {
+            Hotel testHot5 = new Hotel();
+            testHot5.PhoneNumber = "1234567890";
+            Assert.Equal("1234567890", testHot5.PhoneNumber);
+        }
         //set phone number
+        [Fact]
+        public void TestSetPhone()
+        {
+            Hotel testHot6 = new Hotel();
+            testHot6.PhoneNumber = "9876543210";
+            testHot6.PhoneNumber = "2069999999";
+            Assert.Equal("2069999999", testHot6.PhoneNumber);
+        }
         //create
         //read details
         //edit
@@ -94,7 +109,22 @@ namespace AsyncInn_unittesting
             Assert.Equal("Sally", testRm2.Name);
         }
         //get layout
+        [Fact]
+        public void TestGetLayout()
+        {
+            Room testRm3 = new Room();
+            testRm3.Layout = LayoutEnum.OneBedroom;
+            Assert.Equal(LayoutEnum.OneBedroom, testRm3.Layout);
+        }
         //set layout
+        [Fact]
+        public void TestSetLayout()
+        {
+            Room testRm4 = new Room();
+            testRm4.Layout = LayoutEnum.OneBedroom;
+            testRm4.Layout = LayoutEnum.Studio;
+            Assert.Equal(LayoutEnum.Studio, testRm4.Layout);
+        }
         //create
         //read details
         //edit
@@ -106,9 +136,39 @@ namespace AsyncInn_unittesting
         //get/set roomid?
         //get/set roomnumber?
         //get rate
+        [Fact]
+        public void TesGetRate()
+        {
+            HotelRoom hotRm1 = new HotelRoom();
+            hotRm1.Rate = 10.00;
+            Assert.Equal(10.00, hotRm1.Rate);
+        }
         //set rate
+        [Fact]
+        public void TestSetRate()
+        {
+            HotelRoom hotRm2 = new HotelRoom();
+            hotRm2.Rate = 10.00;
+            hotRm2.Rate = 100.00;
+            Assert.Equal(100.00, hotRm2.Rate);
+        }
         //get petfriendly
+        [Fact]
+        public void TestGetPet()
+        {
+            HotelRoom hotRm3 = new HotelRoom();
+            hotRm3.PetFriendly = true;
+            Assert.True(hotRm3.PetFriendly);
+        }
         //set petfriendly
+        [Fact]
+        public void TestSetPet()
+        {
+            HotelRoom hotRm4 = new HotelRoom();
+            hotRm4.PetFriendly = true;
+            hotRm4.PetFriendly = false;
+            Assert.False(hotRm4.PetFriendly);
+        }
         //create
         //read details
         //edit
