@@ -1,6 +1,7 @@
 using System;
 using Xunit;
 using AsyncInn.Models;
+using Microsoft.EntityFrameworkCore.Design;
 
 
 namespace AsyncInn_unittesting

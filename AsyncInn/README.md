@@ -1,4 +1,5 @@
 # AsyncInn
+Deployed site:  https://jlyasyncinnapp.azurewebsites.net/
 We have been asked to create a Hotel Management system. By the end we will be able to add, delete, and edit hotels, rooms, amenities, room amenities, and hotel rooms.
 
 ## Features
