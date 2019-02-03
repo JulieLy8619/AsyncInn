@@ -11,16 +11,31 @@ namespace AsyncInn.Models.Services
     public class IHotelMgmtServices : IHotelMgmt
     {
         private HotelMgmtDBContext _context { get; }
+        /// <summary>
+        /// makes the connection with the DB
+        /// </summary>
+        /// <param name="context">the DB</param>
         public IHotelMgmtServices(HotelMgmtDBContext context)
         {
             _context = context;
         }
+
+        /// <summary>
+        /// adds a hotel row to the table
+        /// </summary>
+        /// <param name="hotel">the hotel information</param>
+        /// <returns>the hotels</returns>
         public async Task CreateHotel(Hotel hotel)
         {
             _context.HotelTable.Add(hotel);
             await _context.SaveChangesAsync();
         }
 
+        /// <summary>
+        /// removes a hotel row from the table
+        /// </summary>
+        /// <param name="id">which hotel</param>
+        /// <returns>the hotels</returns>
         public async Task<Hotel> DeleteHotel(int id)
         {
             Hotel hotel = _context.HotelTable.FirstOrDefault(hot => hot.ID == id);
@@ -29,16 +44,30 @@ namespace AsyncInn.Models.Services
             return hotel;
         }
 
+        /// <summary>
+        /// gets the row from the hotel table with a specific id
+        /// </summary>
+        /// <param name="id">which hotel</param>
+        /// <returns>the hotel details</returns>
         public async Task<Hotel> GetHotel(int id)
         {
             return await _context.HotelTable.FirstOrDefaultAsync(hot => hot.ID == id);
         }
 
+        /// <summary>
+        /// gets all the rows from the hotel table
+        /// </summary>
+        /// <returns>all the hotels</returns>
         public async Task<IEnumerable<Hotel>> GetHotel()
         {
             return await _context.HotelTable.ToListAsync();
         }
 
+        /// <summary>
+        /// queires the DB for all the hotels, and then filters it further based on the param
+        /// </summary>
+        /// <param name="id">keyword in the hotel name you would like to filter hotel list by</param>
+        /// <returns>list of the hotels</returns>
         public async Task<IEnumerable<Hotel>> SearchHotel(string id)
         {
 
@@ -60,6 +89,11 @@ namespace AsyncInn.Models.Services
             return await hots.ToListAsync();
         }
 
+        /// <summary>
+        /// updates the hotels details in the DB
+        /// </summary>
+        /// <param name="hotel">which hotel</param>
+        /// <returns>the hotels</returns>
         public async Task UpdateHotel(Hotel hotel)
         {
             _context.HotelTable.Update(hotel);
