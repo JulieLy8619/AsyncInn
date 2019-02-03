@@ -50,7 +50,7 @@ namespace AsyncInn.Controllers
         public IActionResult Create()
         {
             ViewData["HotelID"] = new SelectList(_context.HotelTable, "ID", "Name");
-            ViewData["RoomNumber"] = new SelectList(_context.RoomTable, "RoomNumber", "RoomNumber");
+            ViewData["RoomNumber"] = new SelectList(_context.RoomTable, "ID", "RoomNumber");
             ViewData["RoomID"] = new SelectList(_context.RoomTable, "ID", "Name");
             return View();
         }
@@ -79,7 +79,7 @@ namespace AsyncInn.Controllers
                 }
             }
             ViewData["HotelID"] = new SelectList(_context.HotelTable, "ID", "Name", hotelRoom.HotelID);
-            ViewData["RoomNumber"] = new SelectList(_context.RoomTable, "RoomNumber", "RoomNumber", hotelRoom.RoomNumber);
+            ViewData["RoomNumber"] = new SelectList(_context.RoomTable, "ID", "RoomNumber", hotelRoom.RoomNumber);
             ViewData["RoomID"] = new SelectList(_context.RoomTable, "ID", "Name", hotelRoom.RoomID);
             return View(hotelRoom);
         }
@@ -98,7 +98,7 @@ namespace AsyncInn.Controllers
                 return NotFound();
             }
             ViewData["HotelID"] = new SelectList(_context.HotelTable, "ID", "Name", hotelRoom.HotelID);
-            ViewData["RoomNumber"] = new SelectList(_context.RoomTable, "RoomNumber", "RoomNumber", hotelRoom.RoomNumber);
+            ViewData["RoomNumber"] = new SelectList(_context.RoomTable, "ID", "RoomNumber", hotelRoom.RoomNumber);
             ViewData["RoomID"] = new SelectList(_context.RoomTable, "ID", "Name", hotelRoom.RoomID);
             return View(hotelRoom);
         }
@@ -136,15 +136,15 @@ namespace AsyncInn.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["HotelID"] = new SelectList(_context.HotelTable, "ID", "Name", hotelRoom.HotelID);
-            ViewData["RoomNumber"] = new SelectList(_context.RoomTable, "RoomNumber", "RoomNumber", hotelRoom.RoomNumber);
+            ViewData["RoomNumber"] = new SelectList(_context.RoomTable, "ID", "RoomNumber", hotelRoom.RoomNumber);
             ViewData["RoomID"] = new SelectList(_context.RoomTable, "ID", "Name", hotelRoom.RoomID);
             return View(hotelRoom);
         }
 
         // GET: HotelRoom/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? HotelID, int? RoomNumber)
         {
-            if (id == null)
+            if (HotelID == null)
             {
                 return NotFound();
             }
@@ -152,7 +152,7 @@ namespace AsyncInn.Controllers
             var hotelRoom = await _context.HotelRoomTable
                 .Include(h => h.Hotel)
                 .Include(h => h.Room)
-                .FirstOrDefaultAsync(m => m.HotelID == id);
+                .FirstOrDefaultAsync(m => m.HotelID == HotelID);
             if (hotelRoom == null)
             {
                 return NotFound();
@@ -164,12 +164,26 @@ namespace AsyncInn.Controllers
         // POST: HotelRoom/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int HotelID, int RoomNumber)
         {
-            var hotelRoom = await _context.HotelRoomTable.FindAsync(id);
-            _context.HotelRoomTable.Remove(hotelRoom);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            //if (HotelID == null)
+            //{
+            //    return NotFound();
+            //}
+            var hotelRoom = await _context.HotelRoomTable
+                .Include(h => h.Hotel)
+                .Include(h => h.Room)
+                .FirstOrDefaultAsync(m => m.HotelID == HotelID && m.RoomNumber == RoomNumber);
+            if (hotelRoom == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                _context.HotelRoomTable.Remove(hotelRoom);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
         }
 
         private bool HotelRoomExists(int id)
