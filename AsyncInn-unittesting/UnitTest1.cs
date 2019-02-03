@@ -406,8 +406,23 @@ namespace AsyncInn_unittesting
 
         //model hotelroom======================
         //get/set hotelID
+        //[Fact]
+        //public void TestName()
+        //{
+
+        //}
         //get/set roomid
+        //[Fact]
+        //public void TestName()
+        //{
+
+        //}
         //get/set roomnumber
+        //[Fact]
+        //public void TestName()
+        //{
+
+        //}
         //get rate
         [Fact]
         public void TesGetRate()
@@ -443,10 +458,258 @@ namespace AsyncInn_unittesting
             Assert.False(hotRm4.PetFriendly);
         }
         //create
-        //read details
-        //edit
-        //delete
+        [Fact]
+        public async void TestCreateHotelRoom()
+        {
+            DbContextOptions<HotelMgmtDBContext> options = new DbContextOptionsBuilder<HotelMgmtDBContext>().UseInMemoryDatabase("CreateHotelRooms").Options;
 
+            using (HotelMgmtDBContext context = new HotelMgmtDBContext(options))
+            {
+                Hotel hot1 = new Hotel();
+                hot1.ID = 1;
+                hot1.Name = "TestHotelOne";
+                hot1.Address = "FakeAddressOne";
+                hot1.PhoneNumber = "FakePNumberOne";
+
+                Room roo1 = new Room();
+                roo1.ID = 1;
+                roo1.Name = "CreativeRoomName";
+                roo1.Layout = LayoutEnum.OneBedroom;
+
+                HotelRoom hr1 = new HotelRoom();
+                hr1.HotelID = 1;
+                hr1.RoomNumber = 123;
+                hr1.RoomID = 1;
+                hr1.Rate = 10.00;
+                hr1.PetFriendly = true;
+
+                IRoomMgmtServices rooService = new IRoomMgmtServices(context);
+                IHotelMgmtServices hotService = new IHotelMgmtServices(context);
+
+                await hotService.CreateHotel(hot1);
+                await rooService.CreateRoom(roo1);
+
+                context.HotelRoomTable.Add(hr1);
+                await context.SaveChangesAsync();
+
+                var hr1Answer = context.HotelRoomTable.FirstOrDefault(hr => hr.RoomNumber == hr1.RoomNumber);
+
+                Assert.Equal(hr1, hr1Answer);
+            }
+        }
+        //read details
+        //I don't think I did this one right because it's like create
+        [Fact]
+        public async void TestReadHotelRoom()
+        {
+            DbContextOptions<HotelMgmtDBContext> options = new DbContextOptionsBuilder<HotelMgmtDBContext>().UseInMemoryDatabase("ReadHotelRooms").Options;
+
+            using (HotelMgmtDBContext context = new HotelMgmtDBContext(options))
+            {
+                Hotel hot2 = new Hotel();
+                hot2.ID = 1;
+                hot2.Name = "TestHotel2";
+                hot2.Address = "FakeAddress2";
+                hot2.PhoneNumber = "FakePNumber2";
+
+                Room roo2 = new Room();
+                roo2.ID = 1;
+                roo2.Name = "Room Name";
+                roo2.Layout = LayoutEnum.OneBedroom;
+
+                HotelRoom hr2 = new HotelRoom();
+                hr2.HotelID = 1;
+                hr2.RoomNumber = 456;
+                hr2.RoomID = 1;
+                hr2.Rate = 100.00;
+                hr2.PetFriendly = false;
+
+                IRoomMgmtServices rooService = new IRoomMgmtServices(context);
+                IHotelMgmtServices hotService = new IHotelMgmtServices(context);
+
+                await hotService.CreateHotel(hot2);
+                await rooService.CreateRoom(roo2);
+
+                context.HotelRoomTable.Add(hr2);
+                await context.SaveChangesAsync();
+
+                var hr2Answer = context.HotelRoomTable.FirstOrDefault(hr => hr.RoomNumber == hr2.RoomNumber);
+
+                Assert.Equal(hr2, hr2Answer);
+            }
+    }
+        //edit
+        [Fact]
+        public async void TestUpdateHotelRoom()
+        {
+            DbContextOptions<HotelMgmtDBContext> options = new DbContextOptionsBuilder<HotelMgmtDBContext>().UseInMemoryDatabase("UpdateHotelRooms").Options;
+
+            using (HotelMgmtDBContext context = new HotelMgmtDBContext(options))
+            {
+                Hotel hot3 = new Hotel();
+                hot3.ID = 1;
+                hot3.Name = "TestHotel3";
+                hot3.Address = "FakeAddress3";
+                hot3.PhoneNumber = "FakePNumber3";
+
+                Room roo3 = new Room();
+                roo3.ID = 1;
+                roo3.Name = "HoneyMoon Suite";
+                roo3.Layout = LayoutEnum.Studio;
+
+                HotelRoom hr3 = new HotelRoom();
+                hr3.HotelID = 1;
+                hr3.RoomNumber = 789;
+                hr3.RoomID = 1;
+                hr3.Rate = 50.00;
+                hr3.PetFriendly = false;
+                hr3.PetFriendly = true;
+
+                IRoomMgmtServices rooService = new IRoomMgmtServices(context);
+                IHotelMgmtServices hotService = new IHotelMgmtServices(context);
+
+                await hotService.CreateHotel(hot3);
+                await rooService.CreateRoom(roo3);
+
+                context.HotelRoomTable.Add(hr3);
+                await context.SaveChangesAsync();
+
+                var hr3Answer = context.HotelRoomTable.FirstOrDefault(hr => hr.RoomNumber == hr3.RoomNumber);
+
+                Assert.True(hr3Answer.PetFriendly);
+            }
+        }
+        //delete hotel room
+        [Fact]
+        public async void TestDeleteHotelRoom()
+        {
+            DbContextOptions<HotelMgmtDBContext> options = new DbContextOptionsBuilder<HotelMgmtDBContext>().UseInMemoryDatabase("DeleteHotelRooms").Options;
+
+            using (HotelMgmtDBContext context = new HotelMgmtDBContext(options))
+            {
+                Hotel hot4 = new Hotel();
+                hot4.ID = 1;
+                hot4.Name = "TestHotel4";
+                hot4.Address = "FakeAddress4";
+                hot4.PhoneNumber = "FakePNumber4";
+
+                Room roo4 = new Room();
+                roo4.ID = 1;
+                roo4.Name = "Basement Suite";
+                roo4.Layout = LayoutEnum.TwoBedroom;
+
+                HotelRoom hr4 = new HotelRoom();
+                hr4.HotelID = 1;
+                hr4.RoomNumber = 963;
+                hr4.RoomID = 1;
+                hr4.Rate = 250.00;
+                hr4.PetFriendly = true;
+
+                IRoomMgmtServices rooService = new IRoomMgmtServices(context);
+                IHotelMgmtServices hotService = new IHotelMgmtServices(context);
+
+                await hotService.CreateHotel(hot4);
+                await rooService.CreateRoom(roo4);
+
+                context.HotelRoomTable.Add(hr4);
+                await context.SaveChangesAsync();
+
+                //var deleteHR = await context.HotelRoomTable
+                //.Include(h => h.Hotel)
+                //.Include(h => h.Room)
+                //.FirstOrDefaultAsync(m => m.HotelID == hr4.HotelID && m.RoomNumber == hr4.RoomNumber);
+                context.HotelRoomTable.Remove(hr4);
+                await context.SaveChangesAsync();
+
+                var hr4Answer = context.HotelRoomTable.FirstOrDefault(hr => hr.RoomNumber == hr4.RoomNumber);
+
+                Assert.Null(hr4Answer);
+            }
+        }
+
+        //deletes hotel room if I delete hotel
+        [Fact]
+        public async void TestDeleteHotelRoom2()
+        {
+            DbContextOptions<HotelMgmtDBContext> options = new DbContextOptionsBuilder<HotelMgmtDBContext>().UseInMemoryDatabase("DeleteHotelRooms2").Options;
+
+            using (HotelMgmtDBContext context = new HotelMgmtDBContext(options))
+            {
+                Hotel hot5 = new Hotel();
+                hot5.ID = 1;
+                hot5.Name = "TestHotel5";
+                hot5.Address = "FakeAddress5";
+                hot5.PhoneNumber = "FakePNumber5";
+
+                Room roo5 = new Room();
+                roo5.ID = 1;
+                roo5.Name = "Tired room";
+                roo5.Layout = LayoutEnum.TwoBedroom;
+
+                HotelRoom hr5 = new HotelRoom();
+                hr5.HotelID = 1;
+                hr5.RoomNumber = 852;
+                hr5.RoomID = 1;
+                hr5.Rate = 90.00;
+                hr5.PetFriendly = false;
+
+                IRoomMgmtServices rooService = new IRoomMgmtServices(context);
+                IHotelMgmtServices hotService = new IHotelMgmtServices(context);
+
+                await hotService.CreateHotel(hot5);
+                await rooService.CreateRoom(roo5);
+
+                context.HotelRoomTable.Add(hr5);
+                await context.SaveChangesAsync();
+                await hotService.DeleteHotel(1);
+
+                var hr5Answer = context.HotelRoomTable.FirstOrDefault(hr => hr.RoomNumber == hr5.RoomNumber);
+
+                Assert.Null(hr5Answer);
+            }
+        }
+
+        //deletes hotel room if I delete room
+        [Fact]
+        public async void TestDeleteHotelRoom3()
+        {
+            DbContextOptions<HotelMgmtDBContext> options = new DbContextOptionsBuilder<HotelMgmtDBContext>().UseInMemoryDatabase("DeleteHotelRooms3").Options;
+
+            using (HotelMgmtDBContext context = new HotelMgmtDBContext(options))
+            {
+                Hotel hot6 = new Hotel();
+                hot6.ID = 1;
+                hot6.Name = "TestHotel5";
+                hot6.Address = "FakeAddress5";
+                hot6.PhoneNumber = "FakePNumber5";
+
+                Room roo6 = new Room();
+                roo6.ID = 1;
+                roo6.Name = "Tired room";
+                roo6.Layout = LayoutEnum.TwoBedroom;
+
+                HotelRoom hr6 = new HotelRoom();
+                hr6.HotelID = 1;
+                hr6.RoomNumber = 852;
+                hr6.RoomID = 1;
+                hr6.Rate = 90.00;
+                hr6.PetFriendly = false;
+
+                IRoomMgmtServices rooService = new IRoomMgmtServices(context);
+                IHotelMgmtServices hotService = new IHotelMgmtServices(context);
+
+                await hotService.CreateHotel(hot6);
+                await rooService.CreateRoom(roo6);
+
+                context.HotelRoomTable.Add(hr6);
+                await context.SaveChangesAsync();
+                await rooService.DeleteRoom(1);
+
+                var hr6Answer = context.HotelRoomTable.FirstOrDefault(hr => hr.RoomNumber == hr6.RoomNumber);
+
+                Assert.Null(hr6Answer);
+            }
+        }
 
         //model room amenities===============
         //get/set amenitiesid
@@ -459,13 +722,4 @@ namespace AsyncInn_unittesting
     }
 }
 
-//testing video is 1-30-9 about 30 mins in
-//Getters/Setters on all Models
-//Standard CRUD operations on all tables(test your services!)
-//already Install-Package Microsoft.EntityFrameworkCore.InMemory
 
-//[Fact]
-//public void TestName()
-//{
-    
-//}
