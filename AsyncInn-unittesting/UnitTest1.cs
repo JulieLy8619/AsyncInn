@@ -75,7 +75,7 @@ namespace AsyncInn_unittesting
         [Fact]
         public async void TestEditAmenities()
         {
-            DbContextOptions<HotelMgmtDBContext> options = new DbContextOptionsBuilder<HotelMgmtDBContext>().UseInMemoryDatabase("EditAmenities").Options;
+            DbContextOptions<HotelMgmtDBContext> options = new DbContextOptionsBuilder<HotelMgmtDBContext>().UseInMemoryDatabase("UpdateAmenities").Options;
 
             using (HotelMgmtDBContext context = new HotelMgmtDBContext(options))
             {
@@ -224,7 +224,7 @@ namespace AsyncInn_unittesting
         [Fact]
         public async void TestEditHotel()
         {
-            DbContextOptions<HotelMgmtDBContext> options = new DbContextOptionsBuilder<HotelMgmtDBContext>().UseInMemoryDatabase("EditHotels").Options;
+            DbContextOptions<HotelMgmtDBContext> options = new DbContextOptionsBuilder<HotelMgmtDBContext>().UseInMemoryDatabase("UpdateHotels").Options;
 
             using (HotelMgmtDBContext context = new HotelMgmtDBContext(options))
             {
@@ -257,9 +257,9 @@ namespace AsyncInn_unittesting
 
                 Hotel hot4 = new Hotel();
                 hot4.ID = 1;
-                hot4.Name = "TestHotel3";
-                hot4.Address = "FakeAddress3";
-                hot4.PhoneNumber = "FakePNumber3";
+                hot4.Name = "TestHotel4";
+                hot4.Address = "FakeAddress4";
+                hot4.PhoneNumber = "FakePNumber4";
 
                 IHotelMgmtServices hotService = new IHotelMgmtServices(context);
 
@@ -310,10 +310,99 @@ namespace AsyncInn_unittesting
             Assert.Equal(LayoutEnum.Studio, testRm4.Layout);
         }
         //create
-        //read details
-        //edit
-        //delete
+        [Fact]
+        public async void TestCreateRoom()
+        {
+            DbContextOptions<HotelMgmtDBContext> options = new DbContextOptionsBuilder<HotelMgmtDBContext>().UseInMemoryDatabase("CreateRooms").Options;
 
+            using (HotelMgmtDBContext context = new HotelMgmtDBContext(options))
+            {
+
+                Room roo1 = new Room();
+                roo1.ID = 1;
+                roo1.Name = "CreativeRoomName";
+                roo1.Layout = LayoutEnum.OneBedroom;
+
+                IRoomMgmtServices rooService = new IRoomMgmtServices(context);
+
+                await rooService.CreateRoom(roo1);
+
+                var roo1Answer = context.RoomTable.FirstOrDefault(r => r.ID == roo1.ID);
+
+                Assert.Equal(roo1, roo1Answer);
+            }
+        }
+        //read details
+        [Fact]
+        public async void TestReadRoom()
+        {
+            DbContextOptions<HotelMgmtDBContext> options = new DbContextOptionsBuilder<HotelMgmtDBContext>().UseInMemoryDatabase("ReadRooms").Options;
+
+            using (HotelMgmtDBContext context = new HotelMgmtDBContext(options))
+            {
+
+                Room roo2 = new Room();
+                roo2.ID = 1;
+                roo2.Name = "A New Name";
+                roo2.Layout = LayoutEnum.OneBedroom;
+
+                IRoomMgmtServices rooService = new IRoomMgmtServices(context);
+
+                await rooService.CreateRoom(roo2);
+                var roo2Answer = await rooService.GetRoom(1);
+
+                Assert.Equal(roo2, roo2Answer);
+            }
+        }
+        //edit
+        [Fact]
+        public async void TestEditRoom()
+        {
+            DbContextOptions<HotelMgmtDBContext> options = new DbContextOptionsBuilder<HotelMgmtDBContext>().UseInMemoryDatabase("UpdateRooms").Options;
+
+            using (HotelMgmtDBContext context = new HotelMgmtDBContext(options))
+            {
+
+                Room roo3 = new Room();
+                roo3.ID = 1;
+                roo3.Name = "Edit room name";
+                roo3.Layout = LayoutEnum.OneBedroom;
+                roo3.Layout = LayoutEnum.Studio;
+
+                IRoomMgmtServices rooService = new IRoomMgmtServices(context);
+
+                await rooService.CreateRoom(roo3);
+                await rooService.UpdateRoom(roo3);
+
+                var roo3Answer = await rooService.GetRoom(1);
+
+                Assert.Equal(LayoutEnum.Studio, roo3Answer.Layout);
+            }
+        }
+        //delete
+        [Fact]
+        public async void TestDeleteRoom()
+        {
+            DbContextOptions<HotelMgmtDBContext> options = new DbContextOptionsBuilder<HotelMgmtDBContext>().UseInMemoryDatabase("DeleteRooms").Options;
+
+            using (HotelMgmtDBContext context = new HotelMgmtDBContext(options))
+            {
+
+                Room roo4 = new Room();
+                roo4.ID = 1;
+                roo4.Name = "Last Room Name";
+                roo4.Layout = LayoutEnum.TwoBedroom;
+
+                IRoomMgmtServices rooService = new IRoomMgmtServices(context);
+
+                await rooService.CreateRoom(roo4);
+                await rooService.DeleteRoom(1);
+
+                var roo4Answer = await rooService.GetRoom(1);
+
+                Assert.Null(roo4Answer);
+            }
+        }
 
         //model hotelroom======================
         //get/set hotelID
