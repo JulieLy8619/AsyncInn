@@ -91,12 +91,11 @@ namespace AsyncInn_unittesting
                 await amenService.UpdateAmenity(amen3);
                 var amen3Answer = await amenService.GetAmenities(1);
 
-                Assert.Equal(amen3, amen3Answer);
+                Assert.Equal("NewBed", amen3Answer.Name);
             }
         }
 
         //delete
-        //edit
         [Fact]
         public async void TestDeleteAmenities()
         {
@@ -175,9 +174,104 @@ namespace AsyncInn_unittesting
             Assert.Equal("2069999999", testHot6.PhoneNumber);
         }
         //create
+        [Fact]
+        public async void TestCreateHotel()
+        {
+            DbContextOptions<HotelMgmtDBContext> options = new DbContextOptionsBuilder<HotelMgmtDBContext>().UseInMemoryDatabase("CreateHotels").Options;
+
+            using (HotelMgmtDBContext context = new HotelMgmtDBContext(options))
+            {
+
+                Hotel hot1 = new Hotel();
+                hot1.ID = 1;
+                hot1.Name = "TestHotelOne";
+                hot1.Address = "FakeAddressOne";
+                hot1.PhoneNumber = "FakePNumberOne";
+
+                IHotelMgmtServices hotService = new IHotelMgmtServices(context);
+
+                await hotService.CreateHotel(hot1);
+
+                var hot1Answer = context.HotelTable.FirstOrDefault(h => h.ID == hot1.ID);
+
+                Assert.Equal(hot1, hot1Answer);
+            }
+        }
         //read details
+        [Fact]
+        public async void TestReadHotel()
+        {
+            DbContextOptions<HotelMgmtDBContext> options = new DbContextOptionsBuilder<HotelMgmtDBContext>().UseInMemoryDatabase("ReadHotels").Options;
+
+            using (HotelMgmtDBContext context = new HotelMgmtDBContext(options))
+            {
+
+                Hotel hot2 = new Hotel();
+                hot2.ID = 1;
+                hot2.Name = "TestHotelTwo";
+                hot2.Address = "FakeAddressTwo";
+                hot2.PhoneNumber = "FakePNumberTwo";
+
+                IHotelMgmtServices hotService = new IHotelMgmtServices(context);
+
+                await hotService.CreateHotel(hot2);
+                var hot2Answer = await hotService.GetHotel(1);
+
+                Assert.Equal(hot2, hot2Answer);
+            }
+        }
         //edit
+        [Fact]
+        public async void TestEditHotel()
+        {
+            DbContextOptions<HotelMgmtDBContext> options = new DbContextOptionsBuilder<HotelMgmtDBContext>().UseInMemoryDatabase("EditHotels").Options;
+
+            using (HotelMgmtDBContext context = new HotelMgmtDBContext(options))
+            {
+
+                Hotel hot3 = new Hotel();
+                hot3.ID = 1;
+                hot3.Name = "TestHotel3";
+                hot3.Address = "FakeAddress3";
+                hot3.PhoneNumber = "FakePNumber3";
+                hot3.PhoneNumber = "NewFakePNumber3";
+
+                IHotelMgmtServices hotService = new IHotelMgmtServices(context);
+
+                await hotService.CreateHotel(hot3);
+                await hotService.UpdateHotel(hot3);
+                var hot3Answer = await hotService.GetHotel(1);
+
+                Assert.Equal("NewFakePNumber3", hot3Answer.PhoneNumber);
+            }
+        }
+
         //delete
+        [Fact]
+        public async void TestDeleteHotel()
+        {
+            DbContextOptions<HotelMgmtDBContext> options = new DbContextOptionsBuilder<HotelMgmtDBContext>().UseInMemoryDatabase("DeleteHotels").Options;
+
+            using (HotelMgmtDBContext context = new HotelMgmtDBContext(options))
+            {
+
+                Hotel hot4 = new Hotel();
+                hot4.ID = 1;
+                hot4.Name = "TestHotel3";
+                hot4.Address = "FakeAddress3";
+                hot4.PhoneNumber = "FakePNumber3";
+
+                IHotelMgmtServices hotService = new IHotelMgmtServices(context);
+
+                await hotService.CreateHotel(hot4);
+                await hotService.DeleteHotel(1);
+
+                var hot4Answer = await hotService.GetHotel(1);
+
+                Assert.Null(hot4Answer);
+            }
+        }
+
 
 
         //model room==============================
