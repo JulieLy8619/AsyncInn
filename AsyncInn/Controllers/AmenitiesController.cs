@@ -27,7 +27,7 @@ namespace AsyncInn.Controllers
 
         // GET: Amenities
         /// <summary>
-        /// by default, makes a request to the DB for Amenities, however one can also pass in a search string and only those will return
+        /// Calls the main page for Amenities
         /// </summary>
         /// <param name="searchString">search params to filter the query</param>
         /// <returns>the objects to display to the page</returns>
@@ -38,7 +38,7 @@ namespace AsyncInn.Controllers
 
         // GET: Amenities/Details/5
         /// <summary>
-        /// makes a request to the DB for the details
+        /// Calls the details page for Amenities
         /// </summary>
         /// <param name="id">the id of which amenity</param>
         /// <returns>the details of that amenity</returns>
@@ -83,7 +83,7 @@ namespace AsyncInn.Controllers
 
         // GET: Amenities/Edit/5
         /// <summary>
-        /// Sends the request to update an amenity to the DB
+        /// Calls the page to update an amenity
         /// </summary>
         /// <param name="id">which amenity</param>
         /// <returns>the amenites</returns>
@@ -116,7 +116,7 @@ namespace AsyncInn.Controllers
 
         // GET: Amenities/Delete/5
         /// <summary>
-        /// makes a request to the db to delete
+        /// Calls the delete page for amenities
         /// </summary>
         /// <param name="id">which amenity one wants to delete</param>
         /// <returns>the amenity</returns>
