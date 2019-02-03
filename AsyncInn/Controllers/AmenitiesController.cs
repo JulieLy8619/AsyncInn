@@ -11,22 +11,37 @@ using AsyncInn.Models.Interfaces;
 
 namespace AsyncInn.Controllers
 {
+
     public class AmenitiesController : Controller
     {
         private readonly IAmenitiesMgmt _context;
 
+        /// <summary>
+        /// helps give access to the database through dependency injection
+        /// </summary>
+        /// <param name="context">dependency injection</param>
         public AmenitiesController(IAmenitiesMgmt context)
         {
             _context = context;
         }
 
         // GET: Amenities
+        /// <summary>
+        /// by default, makes a request to the DB for Amenities, however one can also pass in a search string and only those will return
+        /// </summary>
+        /// <param name="searchString">search params to filter the query</param>
+        /// <returns>the objects to display to the page</returns>
         public async Task<IActionResult> Index(string searchString)
         {
             return View(await _context.SearchAmenity(searchString));
         }
 
         // GET: Amenities/Details/5
+        /// <summary>
+        /// makes a request to the DB for the details
+        /// </summary>
+        /// <param name="id">the id of which amenity</param>
+        /// <returns>the details of that amenity</returns>
         public async Task<IActionResult> Details(int id)
         {
             var amenities = await _context.GetAmenities(id);
@@ -35,6 +50,10 @@ namespace AsyncInn.Controllers
         }
 
         // GET: Amenities/Create
+        /// <summary>
+        /// calls the page to create a new amenity
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Create()
         {
@@ -44,6 +63,11 @@ namespace AsyncInn.Controllers
         // POST: Amenities/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Sends request to the DB to make a new Amenity
+        /// </summary>
+        /// <param name="amenities">the new amenity object</param>
+        /// <returns>the amenities</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,Name")] Amenities amenities)
@@ -58,6 +82,11 @@ namespace AsyncInn.Controllers
         }
 
         // GET: Amenities/Edit/5
+        /// <summary>
+        /// Sends the request to update an amenity to the DB
+        /// </summary>
+        /// <param name="id">which amenity</param>
+        /// <returns>the amenites</returns>
         public async Task<IActionResult> Edit(int id)
         {
             var amenities = await _context.GetAmenities(id);
@@ -71,6 +100,12 @@ namespace AsyncInn.Controllers
         //// POST: Amenities/Edit/5
         //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Send the details of what to update the amenity with
+        /// </summary>
+        /// <param name="id">the amenity adjustments</param>
+        /// <param name="amenities"></param>
+        /// <returns>teh amenities</returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,Name")] Amenities amenities)
@@ -80,6 +115,11 @@ namespace AsyncInn.Controllers
         }
 
         // GET: Amenities/Delete/5
+        /// <summary>
+        /// makes a request to the db to delete
+        /// </summary>
+        /// <param name="id">which amenity one wants to delete</param>
+        /// <returns>the amenity</returns>
         public async Task<IActionResult> Delete(int id)
         {
             var delAmenity = await _context.GetAmenities(id);
@@ -88,6 +128,11 @@ namespace AsyncInn.Controllers
         }
 
         // POST: Amenities/Delete/5
+        /// <summary>
+        /// Sends the details of what to delete from the DB
+        /// </summary>
+        /// <param name="id">which amenity</param>
+        /// <returns>the amenities</returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -96,6 +141,11 @@ namespace AsyncInn.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        /// <summary>
+        /// checks if an amenity exists in the DB
+        /// </summary>
+        /// <param name="id">which amenity</param>
+        /// <returns>true or false</returns>
         private bool AmenitiesExists(int id)
         {
             var returnedAmenityId = _context.GetAmenities(id);
