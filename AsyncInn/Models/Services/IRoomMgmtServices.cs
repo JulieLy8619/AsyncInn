@@ -44,6 +44,14 @@ namespace AsyncInn.Models.Services
             var roos = from a in _context.RoomTable
                        select a;
 
+            foreach (Room roo in roos)
+            {
+                var rAmen = from ra in _context.RoomAmenitiesTable
+                           where ra.RoomID == roo.ID
+                           select ra;
+                roo.RAmenitites = await rAmen.ToListAsync();
+            }
+
             if (!String.IsNullOrEmpty(id))
             {
                 roos = roos.Where(n => n.Name.Contains(id));
