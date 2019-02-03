@@ -406,26 +406,56 @@ namespace AsyncInn_unittesting
 
         //model hotelroom======================
         //get/set hotelID
-        //[Fact]
-        //public void TestName()
-        //{
-
-        //}
+        [Fact]
+        public void TestGetHRHotelID()
+        {
+            HotelRoom hotRmA = new HotelRoom();
+            hotRmA.HotelID = 1;
+            Assert.Equal(1, hotRmA.HotelID);
+        }
+        [Fact]
+        public void TestSetHRHotelID()
+        {
+            HotelRoom hotRmB = new HotelRoom();
+            hotRmB.HotelID = 1;
+            hotRmB.HotelID = 2;
+            Assert.Equal(2, hotRmB.HotelID);
+        }
         //get/set roomid
-        //[Fact]
-        //public void TestName()
-        //{
-
-        //}
+        [Fact]
+        public void TestGetHRRoomID()
+        {
+            HotelRoom hotRmC = new HotelRoom();
+            hotRmC.RoomID = 1;
+            Assert.Equal(1, hotRmC.RoomID);
+        }
+        [Fact]
+        public void TestSetHRRoomID()
+        {
+            HotelRoom hotRmD = new HotelRoom();
+            hotRmD.RoomID = 1;
+            hotRmD.RoomID = 2;
+            Assert.Equal(2, hotRmD.RoomID);
+        }
         //get/set roomnumber
-        //[Fact]
-        //public void TestName()
-        //{
-
-        //}
+        [Fact]
+        public void TestGetRoomNumber()
+        {
+            HotelRoom hotRmE = new HotelRoom();
+            hotRmE.RoomNumber = 123;
+            Assert.Equal(123, hotRmE.RoomNumber);
+        }
+        [Fact]
+        public void TestSetRoomNumber()
+        {
+            HotelRoom hotRmF = new HotelRoom();
+            hotRmF.RoomNumber = 987;
+            hotRmF.RoomNumber = 963;
+            Assert.Equal(963, hotRmF.RoomNumber);
+        }
         //get rate
         [Fact]
-        public void TesGetRate()
+        public void TestGetRate()
         {
             HotelRoom hotRm1 = new HotelRoom();
             hotRm1.Rate = 10.00;
@@ -713,12 +743,264 @@ namespace AsyncInn_unittesting
 
         //model room amenities===============
         //get/set amenitiesid
+        [Fact]
+        public void TestGetRMAmenID()
+        {
+            RoomAmenities roomAmenA = new RoomAmenities();
+            roomAmenA.AmenitiesID = 1;
+            Assert.Equal(1, roomAmenA.AmenitiesID);
+        }
+        [Fact]
+        public void TestSetRMAmenID()
+        {
+            RoomAmenities roomAmenB = new RoomAmenities();
+            roomAmenB.AmenitiesID = 1;
+            roomAmenB.AmenitiesID = 2;
+            Assert.Equal(2, roomAmenB.AmenitiesID);
+        }
         //get/set roomid
+        [Fact]
+        public void TestGetRMRoomID()
+        {
+            RoomAmenities roomAmenC = new RoomAmenities();
+            roomAmenC.AmenitiesID = 1;
+            Assert.Equal(1, roomAmenC.AmenitiesID);
+        }
+        [Fact]
+        public void TestSetRMRoomID()
+        {
+            RoomAmenities roomAmenD = new RoomAmenities();
+            roomAmenD.AmenitiesID = 1;
+            roomAmenD.AmenitiesID = 2;
+            Assert.Equal(2, roomAmenD.AmenitiesID);
+        }
         //create
-        //read details
-        //edit
-        //delete
+        [Fact]
+        public async void TestCreateRoomAmenity()
+        {
+            DbContextOptions<HotelMgmtDBContext> options = new DbContextOptionsBuilder<HotelMgmtDBContext>().UseInMemoryDatabase("CreateRoomAmenity").Options;
 
+            using (HotelMgmtDBContext context = new HotelMgmtDBContext(options))
+            {
+                Room roo1 = new Room();
+                roo1.ID = 1;
+                roo1.Name = "CreativeRoomName";
+                roo1.Layout = LayoutEnum.OneBedroom;
+
+                Amenities ament1 = new Amenities();
+                ament1.ID = 1;
+                ament1.Name = "Just a name";
+
+                RoomAmenities ra1 = new RoomAmenities();
+                ra1.RoomID = 1;
+                ra1.AmenitiesID = 1;
+                
+
+                IRoomMgmtServices rooService = new IRoomMgmtServices(context);
+                IAmenitiesMgmtServices amentService = new IAmenitiesMgmtServices(context);
+
+                await amentService.CreateAmenity(ament1);
+                await rooService.CreateRoom(roo1);
+
+                context.RoomAmenitiesTable.Add(ra1);
+                await context.SaveChangesAsync();
+
+                var ra1Answer = context.RoomAmenitiesTable.FirstOrDefault(ra => ra.RoomID == ra1.RoomID && ra.AmenitiesID == ra1.AmenitiesID);
+
+                Assert.Equal(ra1, ra1Answer);
+            }
+        }
+        //read details
+        //again I don't think this was right because it's like creat
+        [Fact]
+        public async void TestReadRoomAmenity()
+        {
+            DbContextOptions<HotelMgmtDBContext> options = new DbContextOptionsBuilder<HotelMgmtDBContext>().UseInMemoryDatabase("ReadRoomAmenity").Options;
+
+            using (HotelMgmtDBContext context = new HotelMgmtDBContext(options))
+            {
+                Room roo2 = new Room();
+                roo2.ID = 1;
+                roo2.Name = "Some Name";
+                roo2.Layout = LayoutEnum.OneBedroom;
+
+                Amenities ament2 = new Amenities();
+                ament2.ID = 1;
+                ament2.Name = "Another Name";
+
+                RoomAmenities ra2 = new RoomAmenities();
+                ra2.RoomID = 1;
+                ra2.AmenitiesID = 1;
+
+
+                IRoomMgmtServices rooService = new IRoomMgmtServices(context);
+                IAmenitiesMgmtServices amentService = new IAmenitiesMgmtServices(context);
+
+                await rooService.CreateRoom(roo2);
+                await amentService.CreateAmenity(ament2);
+
+                context.RoomAmenitiesTable.Add(ra2);
+                await context.SaveChangesAsync();
+
+                var ra2Answer = context.RoomAmenitiesTable.FirstOrDefault(ra => ra.RoomID == ra2.RoomID && ra.AmenitiesID == ra2.AmenitiesID);
+
+                Assert.Equal(ra2, ra2Answer);
+            }
+        }
+        //edit
+        [Fact]
+        public async void TestEditRoomAmenity()
+        {
+            DbContextOptions<HotelMgmtDBContext> options = new DbContextOptionsBuilder<HotelMgmtDBContext>().UseInMemoryDatabase("UpdateRoomAmenity").Options;
+
+            using (HotelMgmtDBContext context = new HotelMgmtDBContext(options))
+            {
+                Room roo3 = new Room();
+                roo3.ID = 1;
+                roo3.Name = "Some Name";
+                roo3.Layout = LayoutEnum.OneBedroom;
+
+                Amenities ament3 = new Amenities();
+                ament3.ID = 1;
+                ament3.Name = "Another Name";
+
+                Amenities ament4 = new Amenities();
+                ament4.ID = 2;
+                ament4.Name = "NewName for Amenity";
+
+                RoomAmenities ra3 = new RoomAmenities();
+                ra3.RoomID = 1;
+                ra3.AmenitiesID = 1;
+                ra3.AmenitiesID = 2; //i don't think this was right for checking update
+
+
+                IRoomMgmtServices rooService = new IRoomMgmtServices(context);
+                IAmenitiesMgmtServices amentService = new IAmenitiesMgmtServices(context);
+
+                await rooService.CreateRoom(roo3);
+                await amentService.CreateAmenity(ament3);
+                await amentService.CreateAmenity(ament4);
+
+                context.RoomAmenitiesTable.Add(ra3);
+                await context.SaveChangesAsync();
+
+                var ra4Answer = context.RoomAmenitiesTable.FirstOrDefault(ra => ra.RoomID == ra3.RoomID && ra.AmenitiesID == ra3.AmenitiesID);
+
+                Assert.Equal(2, ra4Answer.AmenitiesID);
+            }
+        }
+        //delete
+        [Fact]
+        public async void TestDeleteRoomAmenity()
+        {
+            DbContextOptions<HotelMgmtDBContext> options = new DbContextOptionsBuilder<HotelMgmtDBContext>().UseInMemoryDatabase("DeleteRoomAmenity").Options;
+
+            using (HotelMgmtDBContext context = new HotelMgmtDBContext(options))
+            {
+                Room roo4 = new Room();
+                roo4.ID = 1;
+                roo4.Name = "Balloon Room";
+                roo4.Layout = LayoutEnum.OneBedroom;
+
+                Amenities ament5 = new Amenities();
+                ament5.ID = 1;
+                ament5.Name = "bubbly";
+
+                RoomAmenities ra3 = new RoomAmenities();
+                ra3.RoomID = 1;
+                ra3.AmenitiesID = 1;
+
+                IRoomMgmtServices rooService = new IRoomMgmtServices(context);
+                IAmenitiesMgmtServices amentService = new IAmenitiesMgmtServices(context);
+
+                await rooService.CreateRoom(roo4);
+                await amentService.CreateAmenity(ament5);
+
+                context.RoomAmenitiesTable.Add(ra3);
+                await context.SaveChangesAsync();
+
+                context.RoomAmenitiesTable.Remove(ra3);
+                await context.SaveChangesAsync();
+
+                var ra5Answer = context.RoomAmenitiesTable.FirstOrDefault(ra => ra.RoomID == ra3.RoomID && ra.AmenitiesID == ra3.AmenitiesID);
+
+                Assert.Null(ra5Answer);
+            }
+        }
+
+        //delete room amenity if I delete room
+        [Fact]
+        public async void TestDeleteRoomAmenity2()
+        {
+            DbContextOptions<HotelMgmtDBContext> options = new DbContextOptionsBuilder<HotelMgmtDBContext>().UseInMemoryDatabase("DeleteRoomAmenity2").Options;
+
+            using (HotelMgmtDBContext context = new HotelMgmtDBContext(options))
+            {
+                Room roo5 = new Room();
+                roo5.ID = 1;
+                roo5.Name = "Flower Room";
+                roo5.Layout = LayoutEnum.OneBedroom;
+
+                Amenities ament6 = new Amenities();
+                ament6.ID = 1;
+                ament6.Name = "Pillow Fluff";
+
+                RoomAmenities ra4 = new RoomAmenities();
+                ra4.RoomID = 1;
+                ra4.AmenitiesID = 1;
+
+                IRoomMgmtServices rooService = new IRoomMgmtServices(context);
+                IAmenitiesMgmtServices amentService = new IAmenitiesMgmtServices(context);
+
+                await rooService.CreateRoom(roo5);
+                await amentService.CreateAmenity(ament6);
+
+                context.RoomAmenitiesTable.Add(ra4);
+                await context.SaveChangesAsync();
+                await rooService.DeleteRoom(1);
+
+                var ra6Answer = context.RoomAmenitiesTable.FirstOrDefault(ra => ra.RoomID == ra4.RoomID && ra.AmenitiesID == ra4.AmenitiesID);
+
+                Assert.Null(ra6Answer);
+            }
+        }
+
+        //delete room amenity if I delete amenity
+        [Fact]
+        public async void TestDeleteRoomAmenity3()
+        {
+            DbContextOptions<HotelMgmtDBContext> options = new DbContextOptionsBuilder<HotelMgmtDBContext>().UseInMemoryDatabase("DeleteRoomAmenity3").Options;
+
+            using (HotelMgmtDBContext context = new HotelMgmtDBContext(options))
+            {
+                Room roo6 = new Room();
+                roo6.ID = 1;
+                roo6.Name = "Balloon Room";
+                roo6.Layout = LayoutEnum.OneBedroom;
+
+                Amenities ament7 = new Amenities();
+                ament7.ID = 1;
+                ament7.Name = "bubbly";
+
+                RoomAmenities ra5 = new RoomAmenities();
+                ra5.RoomID = 1;
+                ra5.AmenitiesID = 1;
+
+                IRoomMgmtServices rooService = new IRoomMgmtServices(context);
+                IAmenitiesMgmtServices amentService = new IAmenitiesMgmtServices(context);
+
+                await rooService.CreateRoom(roo6);
+                await amentService.CreateAmenity(ament7);
+
+                context.RoomAmenitiesTable.Add(ra5);
+                await context.SaveChangesAsync();
+                await amentService.DeleteAmenity(1);
+
+                var ra7Answer = context.RoomAmenitiesTable.FirstOrDefault(ra => ra.RoomID == ra5.RoomID && ra.AmenitiesID == ra5.AmenitiesID);
+
+                Assert.Null(ra7Answer);
+            }
+        }
     }
 }
 
