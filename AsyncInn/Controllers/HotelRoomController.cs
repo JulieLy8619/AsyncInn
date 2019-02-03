@@ -118,6 +118,10 @@ namespace AsyncInn.Controllers
             {
                 return NotFound();
             }
+            if(hotelRoom.RoomNumber == RoomNumber)
+            {
+                return RedirectToAction(nameof(Create)); //asks they try recreate
+            }
 
             if (ModelState.IsValid)
             {

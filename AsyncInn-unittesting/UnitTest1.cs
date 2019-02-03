@@ -1,8 +1,10 @@
 using System;
 using Xunit;
+using AsyncInn.Data;
 using AsyncInn.Models;
-using Microsoft.EntityFrameworkCore.Design;
-
+using AsyncInn.Models.Services;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace AsyncInn_unittesting
 {
@@ -27,9 +29,96 @@ namespace AsyncInn_unittesting
             Assert.Equal("newName", testAmen2.Name);
         }
         //create
+        [Fact]
+        public async void TestCreateAmenities()
+        {
+            DbContextOptions<HotelMgmtDBContext> options = new DbContextOptionsBuilder<HotelMgmtDBContext>().UseInMemoryDatabase("CreateAmenities").Options;
+
+            using (HotelMgmtDBContext context = new HotelMgmtDBContext(options))
+            {
+
+                Amenities amen1 = new Amenities();
+                amen1.ID = 1;
+                amen1.Name = "FoodCart";
+
+                IAmenitiesMgmtServices amenService = new IAmenitiesMgmtServices(context);
+
+                await amenService.CreateAmenity(amen1);
+
+                var amen1Answer = context.AmenitiesTable.FirstOrDefault(a => a.ID == amen1.ID);
+
+                Assert.Equal(amen1, amen1Answer);
+            }
+        }
         //read details
+        [Fact]
+        public async void TestReadAmenities()
+        {
+            DbContextOptions<HotelMgmtDBContext> options = new DbContextOptionsBuilder<HotelMgmtDBContext>().UseInMemoryDatabase("ReadAmenities").Options;
+
+            using (HotelMgmtDBContext context = new HotelMgmtDBContext(options))
+            {
+
+                Amenities amen2 = new Amenities();
+                amen2.ID = 1;
+                amen2.Name = "tub";
+
+                IAmenitiesMgmtServices amenService = new IAmenitiesMgmtServices(context);
+
+                await amenService.CreateAmenity(amen2);
+                var amen2Answer = await amenService.GetAmenities(1);
+
+                Assert.Equal(amen2, amen2Answer);
+            }
+        }
         //edit
+        [Fact]
+        public async void TestEditAmenities()
+        {
+            DbContextOptions<HotelMgmtDBContext> options = new DbContextOptionsBuilder<HotelMgmtDBContext>().UseInMemoryDatabase("EditAmenities").Options;
+
+            using (HotelMgmtDBContext context = new HotelMgmtDBContext(options))
+            {
+
+                Amenities amen3 = new Amenities();
+                amen3.ID = 1;
+                amen3.Name = "Bed";
+                amen3.Name = "NewBed";
+
+                IAmenitiesMgmtServices amenService = new IAmenitiesMgmtServices(context);
+
+                await amenService.CreateAmenity(amen3);
+                await amenService.UpdateAmenity(amen3);
+                var amen3Answer = await amenService.GetAmenities(1);
+
+                Assert.Equal(amen3, amen3Answer);
+            }
+        }
+
         //delete
+        //edit
+        [Fact]
+        public async void TestDeleteAmenities()
+        {
+            DbContextOptions<HotelMgmtDBContext> options = new DbContextOptionsBuilder<HotelMgmtDBContext>().UseInMemoryDatabase("DeleteAmenities").Options;
+
+            using (HotelMgmtDBContext context = new HotelMgmtDBContext(options))
+            {
+
+                Amenities amen4 = new Amenities();
+                amen4.ID = 1;
+                amen4.Name = "Sink";
+
+                IAmenitiesMgmtServices amenService = new IAmenitiesMgmtServices(context);
+
+                await amenService.CreateAmenity(amen4);
+                await amenService.DeleteAmenity(1);
+
+                var amen4Answer = await amenService.GetAmenities(1);
+
+                Assert.Null(amen4Answer);
+            }
+        }
 
 
 
