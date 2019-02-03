@@ -18,7 +18,7 @@ namespace AsyncInn.Controllers
         /// <summary>
         /// sets up the database connection
         /// </summary>
-        /// <param name="context"></param>
+        /// <param name="context">dependency injection</param>
         public HotelController(IHotelMgmt context)
         {
             _context = context;
