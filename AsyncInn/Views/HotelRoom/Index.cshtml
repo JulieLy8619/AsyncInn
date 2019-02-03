@@ -7,49 +7,59 @@
 
 <h1>Hotel Room Management</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table>
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Rate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PetFriendly)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Hotel)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Room)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
+<div class="topSectionHybrid">
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+</div>
+
+    <table>
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Rate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PetFriendly)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Hotel.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Room.Name)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { HotelID=item.HotelID, RoomNumber=item.RoomNumber }) |
-                    @Html.ActionLink("Details", "Details", new { HotelID = item.HotelID, RoomNumber = item.RoomNumber }) |
-                    @Html.ActionLink("Delete", "Delete", new { HotelID = item.HotelID, RoomNumber = item.RoomNumber })
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Rate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PetFriendly)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Hotel)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Room)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RoomNumber)
+                </th>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Rate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PetFriendly)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Hotel.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Room.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RoomNumber)
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { HotelID = item.HotelID, RoomNumber = item.RoomNumber }) |
+                        @Html.ActionLink("Details", "Details", new { HotelID = item.HotelID, RoomNumber = item.RoomNumber }) |
+                        @Html.ActionLink("Delete", "Delete", new { HotelID = item.HotelID, RoomNumber = item.RoomNumber })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

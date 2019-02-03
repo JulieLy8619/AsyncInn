@@ -7,9 +7,9 @@
 
 <h1>Edit - Hotel Room</h1>
 
-<h4>HotelRoom</h4>
+<h4>@*HotelRoom*@</h4>
 <hr />
-<div>
+<div class="SubPages">
     <div>
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -35,8 +35,8 @@
             </div>
         </form>
     </div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>

@@ -1,5 +1,6 @@
 # AsyncInn
 We have been asked to create a Hotel Management system. By the end we will be able to add, delete, and edit hotels, rooms, amenities, room amenities, and hotel rooms.
+Deployed site:  https://jlyasyncinnapp.azurewebsites.net/
 
 ## Features
 We have 5 classes that interct with each other.
@@ -20,18 +21,21 @@ HotelRoom and RoomAmenities utilize Composite Keys, otherwise the rest use Prima
 ## Installing / Getting started
 As a user you will not need to install anything to use it.
 However as a developer, you will need Visual Studio with ASP.net Core 2.2 capabilities
-The design is still in construction, but for now the home page looks like this:
-![home](./images/endof13view.JPG)
+We utilized LINQ queries for scope for what renders to the HTML pages, as well as We utilized TagHeplpers
+Currently this database comes seeded with:
+- 5 default Hotel Locations
+- 6 Room Types
+- 5 Amenities
+
+The home page looks like this:
+![home](./images/finalHome.JPG)
 The other pages look similar to the home page.
-Seeded Data:
-![HotelsSeeded](./imges/seeded1.JPG)
-![RoomsSeeded](./imges/seeded2.JPG)
-![AmenitiesSeeded](./imges/seeded3.JPG)
-Not much has changed in terms of looks, but we have now added Dependency Injection. There is functionality to Create, Delete, look at, and edit the details.
 
 ## Contributors
 
 CSS Reset from: https://meyerweb.com/eric/tools/css/reset/
+Images from Pixabay
+Image resizer: https://www.photoresizer.com/ 
 A lot of code guidance from Amanda Iverson
 
 ## Contributing

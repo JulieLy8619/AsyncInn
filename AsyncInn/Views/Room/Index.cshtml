@@ -7,19 +7,22 @@
 
 <h1>Room Management</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<p>
-    Number of Rooms: @Model.Count()
-</p>
-<form asp-controller="Room" asp-action="Index">
+<div class="topSection">
     <p>
-        Pick a Filter
-        <input type="text" name="searchString">
-        <input type="submit" value="Filter" />
+        <a asp-action="Create">Create New</a>
     </p>
-</form>
+    <p>
+        Total Number of Rooms: @Model.Count()
+    </p>
+    <form asp-controller="Room" asp-action="Index">
+        <p>
+            You can filter by a key word or phrase:
+            <input type="text" name="searchString">
+            <input type="submit" value="Filter" />
+        </p>
+    </form>
+</div>
+
 <table>
     <thead>
         <tr>
@@ -46,7 +49,7 @@
                 @Html.DisplayFor(modelItem => item.Layout)
             </td>
             <td>
-                @*@Html.DisplayFor(modelItem => item.count)*@
+                @Html.DisplayFor(modelItem => item.RAmenitites.Count)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
