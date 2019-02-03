@@ -1,6 +1,6 @@
 # AsyncInn
-Deployed site:  https://jlyasyncinnapp.azurewebsites.net/
 We have been asked to create a Hotel Management system. By the end we will be able to add, delete, and edit hotels, rooms, amenities, room amenities, and hotel rooms.
+Deployed site:  https://jlyasyncinnapp.azurewebsites.net/
 
 ## Features
 We have 5 classes that interct with each other.
@@ -21,7 +21,7 @@ HotelRoom and RoomAmenities utilize Composite Keys, otherwise the rest use Prima
 ## Installing / Getting started
 As a user you will not need to install anything to use it.
 However as a developer, you will need Visual Studio with ASP.net Core 2.2 capabilities
-The design is still in construction, but for now the home page looks like this:
+The home page looks like this:
 ![home](./images/endof13view.JPG)
 The other pages look similar to the home page.
 Seeded Data:

@@ -7,8 +7,8 @@
 
 <h1>Details - Room</h1>
 
-<div>
-    <h4>Room</h4>
+<div class="SubPages">
+    <h4>@*R*@oom</h4>
     <hr />
     <dl>
         <dt>
@@ -24,8 +24,8 @@
             @Html.DisplayFor(model => model.Layout)
         </dd>
     </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
 </div>

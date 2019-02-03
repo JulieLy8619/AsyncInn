@@ -7,8 +7,8 @@
 
 <h1>Details - Hotel Room</h1>
 
-<div>
-    <h4>HotelRoom</h4>
+<div class="SubPages">
+    <h4>@*HotelRoom*@</h4>
     <hr />
     <dl>
         <dt>
@@ -36,8 +36,8 @@
             @Html.DisplayFor(model => model.Room.Name)
         </dd>
     </dl>
-</div>
-<div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
+    <div>
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        <a asp-action="Index">Back to List</a>
+    </div>
 </div>

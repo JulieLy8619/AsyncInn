@@ -118,3 +118,31 @@ tbody tr td
     color: black;
     border: 1px solid black;
 }
+
+.CreatePage {
+    text-align: center;
+    /*height: 120px;*/
+    width: 500px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: lavenderblush;
+    color: black;
+    border: 1px solid black;
+}
+
+.SubPages {
+    text-align: center;
+    /*height: 700px;*/
+    width: 500px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: blanchedalmond;
+    color: black;
+    border: 1px solid black;
+}
