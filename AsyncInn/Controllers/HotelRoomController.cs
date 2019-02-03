@@ -85,18 +85,22 @@ namespace AsyncInn.Controllers
         }
 
         // GET: HotelRoom/Edit/5
-        public async Task<IActionResult> Edit(HotelRoom key)
+        public async Task<IActionResult> Edit(int? HotelID, int? RoomNumber)
         {
-            if (key == null)
+            if (HotelID == null)
             {
                 return NotFound();
             }
 
-            var hotelRoom = await _context.HotelRoomTable.FindAsync(key);
+            var hotelRoom = await _context.HotelRoomTable
+                .Include(h => h.Hotel)
+                .Include(h => h.Room)
+                .FirstOrDefaultAsync(m => m.HotelID == HotelID);
             if (hotelRoom == null)
             {
                 return NotFound();
             }
+
             ViewData["HotelID"] = new SelectList(_context.HotelTable, "ID", "Name", hotelRoom.HotelID);
             ViewData["RoomNumber"] = new SelectList(_context.RoomTable, "ID", "RoomNumber", hotelRoom.RoomNumber);
             ViewData["RoomID"] = new SelectList(_context.RoomTable, "ID", "Name", hotelRoom.RoomID);
@@ -108,9 +112,9 @@ namespace AsyncInn.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("HotelID,RoomNumber,RoomID,Rate,PetFriendly")] HotelRoom hotelRoom)
+        public async Task<IActionResult> Edit(int? HotelID, int? RoomNumber, [Bind("HotelID,RoomNumber,RoomID,Rate,PetFriendly")] HotelRoom hotelRoom)
         {
-            if (id != hotelRoom.HotelID)
+            if (HotelID != hotelRoom.HotelID)
             {
                 return NotFound();
             }
