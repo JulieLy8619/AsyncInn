@@ -33,6 +33,8 @@ Not much has changed in terms of looks, but we have now added Dependency Injecti
 ## Contributors
 
 CSS Reset from: https://meyerweb.com/eric/tools/css/reset/
+Images from Pixabay
+Image resizer: https://www.photoresizer.com/ 
 A lot of code guidance from Amanda Iverson
 
 ## Contributing
