@@ -1,6 +1,5 @@
 # AsyncInn
 We have been asked to create a Hotel Management system. By the end we will be able to add, delete, and edit hotels, rooms, amenities, room amenities, and hotel rooms.
-Deployed site:  https://jlyasyncinnapp.azurewebsites.net/
 
 ## Features
 We have 5 classes that interct with each other.
@@ -31,10 +30,11 @@ Currently this database comes seeded with:
 
 The home page looks like this:
 ![home](./images/finalHome.JPG)
-The other pages look similar to the home page.
+The other pages look similar to the home page, except it list the information, for examle on the Hotel management home page it will show all the available hotels.
+![MainPageExample](./images/indexExample.JPG)
 
 ## Development
-where i will comment about DI
+We decided to add Dependency Injection in case in the future we need to change our database, like when we decided to switch from our localhost to Azure. Adding Dependency Injection impacted the controllers, where they now directed to Interfaces which lead us to Services, which is where the program actually communicates with a server what we want done to modify the table(s).
 
 ## Versions
 1. Created simple MVC application with 6 tables for models (noted above in the features). Set up the database Context connection for a local database. Set up the composit keys. Set up the view pages with minimal CSS. 
